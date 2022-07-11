@@ -1,0 +1,20 @@
+; Normalize a string to 7-bit ASCII.
+function to_ascii7($string, optional $replacement_char)
+	; Replaces characters below chr 32 (space) and above chr 125 (}) to avoid conversion issues.
+	; This function is required by some web services since KiXtart speaks Windows-1252
+	; and that creates issues with extended ASCII and Unicode characters.
+	dim $index, $char, $char_ascii, $new_char
+	if vartype($replacement_char) <> 8
+		$replacement_char = "-"
+	endif
+	for $index = 1 to len($string)
+		$char = substr($string, $index, 1)
+		$char_ascii = asc(substr($string, $index, 1))
+		if (($char_ascii > 125 or $char_ascii < 32) and $char <> ",") or $char = "?"
+			$new_char = $replacement_char
+		else
+			$new_char = $char
+		endif
+		$to_ascii7 = $to_ascii7 + $new_char
+	next
+endfunction

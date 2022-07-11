@@ -28,3 +28,6 @@ Convert a string to its Base64 equivalent (fast).
 ## sort_list($list, optional $separator)
 Sort a list.
 
+## to_ascii7($string, optional $replacement_char)
+Normalize a string to 7-bit ASCII.
+
