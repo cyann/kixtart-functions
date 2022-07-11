@@ -70,8 +70,11 @@ Return an integer from a x.yy version, e.g. 4.67 -> 467.
 
 ---
 
-# Registry
+# Registry functions
 
 ## enum_key_64($key, $index)
 Enumerate the native value of a registry key on x64.
 
+---
+
+# Networking functions
