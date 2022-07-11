@@ -38,3 +38,6 @@ Normalize a string to 7-bit ASCII.
 
 ## date_time()
 Return the date and time (yyyy-mm-dd hh:mm:ss).
+
+## date()
+Return the date only (yyyy-mm-dd).

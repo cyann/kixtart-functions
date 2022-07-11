@@ -1,0 +1,7 @@
+; Return the date only (yyyy-mm-dd).
+function date(optional $yyyy_mm_dd)
+	if not $yyyy_mm_dd
+		$yyyy_mm_dd = @date
+	endif
+	$date = substr($yyyy_mm_dd, 1, 4) + "-" + substr($yyyy_mm_dd, 6, 2) + "-" + substr($yyyy_mm_dd, 9, 2)
+endfunction
