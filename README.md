@@ -45,6 +45,9 @@ Return the date only (yyyy-mm-dd).
 ## serial_date($serial)
 Convert a date (yyyy/mm/dd or yyyy-mm-dd) to the number of days since day 1 or vice-versa.
 
+## unix_to_date_time($unix_time)
+Return a date (yyyy-mm-dd) from a UNIX timestamp.
+
 ## wmi_utc_to_date_time($wmi_utc)
 Adjust a WMI UTC time to the local time.
 

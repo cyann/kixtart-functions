@@ -1,0 +1,23 @@
+; Return a date (yyyy-mm-dd) from a UNIX timestamp.
+function unix_to_date_time($unix_time)
+	dim $total_days, $total_seconds, $h, $a, $b, $c
+	dim $year, $month, $day, $hour, $minute, $second
+	$total_days = val($unix_time) / 86400
+	$total_seconds = val($unix_time) - $total_days * 86400
+	$total_days = $total_days + 719163
+	$h = 100 * ($total_days + 306) - 25
+	$a = $h / 3652425
+	$b = $a - $a / 4
+	$year = (100 * $b + $h) / 36525
+	$c = $b + ($total_days + 306) - 365 * $year - $year / 4
+	$month = (5 * $c + 456) / 153
+	$day = $c - (153 * $month - 457) / 5
+	if $month > 12
+		$year = $year + 1
+		$month = $month - 12
+	endif
+	$hour = val($total_seconds / 3600)
+	$minute = val(($total_seconds - ($hour * 3600)) / 60)
+	$second = $total_seconds - $hour * 3600 - $minute * 60
+	$unix_to_date_time = "" + $year + "-" + right("00" + $month, 2) + "-" + right("00" + $day, 2) + " " + right("00" + $hour, 2) + ":" + right("00" + $minute, 2) + ":" + right("00" + $second, 2)
+endfunction
