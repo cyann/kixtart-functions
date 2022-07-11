@@ -1,0 +1,10 @@
+; Convert an int8 hex string or date object to a date time string.
+function int8_to_date_time($hex_string)
+	; How To Convert a UNIX time_t to a Win32 FILETIME or SYSTEMTIME
+	; https://support.microsoft.com/en-us/topic/bf03df72-96e4-59f3-1d02-b6781002dc7f
+	dim $dec_number, $ticks_per_seconds, $epoch_difference
+	$ticks_per_seconds = 10000000
+	$epoch_difference = cdbl("11644473600")
+	$dec_number = cdbl(hex_to_dec($hex_string))
+	$int8_to_date_time = unix_to_date_time($dec_number / $ticks_per_seconds - $epoch_difference)
+endfunction

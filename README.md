@@ -52,6 +52,9 @@ Return the date only (yyyy-mm-dd).
 ## hex_to_date_time($hex_string)
 Convert a reversed int8 hexadecimal string to a date time string.
 
+## int8_to_date_time($hex_string)
+Convert an int8 hex string or date object to a date time string.
+
 ## serial_date($serial)
 Return the number of days since day 1 of the specified date (yyyy-mm-dd) or vice-versa.
 
