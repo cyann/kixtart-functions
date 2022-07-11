@@ -41,3 +41,7 @@ Return the date and time (yyyy-mm-dd hh:mm:ss).
 
 ## date()
 Return the date only (yyyy-mm-dd).
+
+## serial_date($serial)
+Convert a date (yyyy/mm/dd or yyyy-mm-dd) to the number of days since day 1 or vice-versa.
+
