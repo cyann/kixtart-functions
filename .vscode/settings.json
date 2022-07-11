@@ -1,7 +1,23 @@
 {
 	"files.eol": "\r\n",
 	"cSpell.words": [
+		"ADODB",
+		"cdbl",
+		"cimv",
+		"cstr",
+		"dsget",
+		"dsquery",
+		"enumkey",
+		"HKLM",
+		"isdeclared",
 		"kixtart",
+		"ldomain",
+		"Msxml",
+		"nomacrosinstrings",
+		"SMBIOSBIOS",
+		"Wbem",
+		"winmgmts",
+		"wksta",
 		"Xtart"
 	]
 }
