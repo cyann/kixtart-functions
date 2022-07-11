@@ -1,0 +1,11 @@
+; Enumerate the native value of a registry key on x64.
+function enum_key_64($key, $index)
+	dim $onwow64
+	if @onwow64
+		$onwow64 = setoption("WOW64AlternateRegView", "on")
+	endif
+	$enum_key_64 = enumkey($key, $index)
+	if @onwow64
+		$onwow64 = setoption("WOW64AlternateRegView", $onwow64)
+	endif
+endfunction
