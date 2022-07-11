@@ -1,0 +1,17 @@
+; Return a UNIX timestamp from a date time string (yyyy-mm-dd hh:mm:ss).
+function date_time_to_unix($date_time)
+	dim $years, $months, $days, $hours, $minutes, $seconds
+	$years = val(substr($date_time, 1, 4))
+	$months = val(substr($date_time, 6, 2))
+	$days = val(substr($date_time, 9, 2))
+	$hours = val(substr($date_time, 12, 2))
+	$minutes = val(substr($date_time, 15, 2))
+	$seconds = val(substr($date_time, 18, 2))
+	if $months < 3
+		$months = $months + 12
+		$years = $years - 1
+	endif
+	$date_time_to_unix = ($days + (153 * $months - 457) / 5 + 365 * $years + $years / 4 - $years / 100 + $years / 400 - 306) - 719163
+	$date_time_to_unix = cdbl($date_time_to_unix) * 86400
+	$date_time_to_unix = $date_time_to_unix + ($hours * 3600) + ($minutes * 60) + $seconds
+endfunction

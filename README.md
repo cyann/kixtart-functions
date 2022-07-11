@@ -40,6 +40,9 @@ Convert a string to be RFC 1738 compliant.
 > Date and time formatting functions, using a format compatible with ISO 8601 and RFC 3339 (yyyy-mm-dd hh:mm:ss).
 > Attention: Most of these are not taking timezones, leap seconds and other time-related quirks into account.
 
+# date_time_to_unix($date_time)
+Return a UNIX timestamp from a date time string (yyyy-mm-dd hh:mm:ss).
+
 ## date_time()
 Return the current date and time (yyyy-mm-dd hh:mm:ss).
 
