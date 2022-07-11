@@ -1,0 +1,24 @@
+; Sort a list.
+function sort_list($list, optional $separator)
+	; This is using Bubble sort, one of the slowest sorting algorithms.
+	dim $list_array[], $index, $next_pos, $current_pos
+	if not $separator
+		$separator = ";"
+	endif
+	$list_array = split($list, $separator)
+	if ubound($list_array)
+		for $index = 0 to ubound($list_array)
+			$current_pos = $list_array[$index]
+			for $next_pos = $index + 1 to ubound($list_array)
+				if $list_array[$next_pos] < $current_pos
+					$current_pos = $list_array[$next_pos]
+					$list_array[$next_pos] = $list_array[$index]
+					$list_array[$index] = $current_pos
+				endif
+			next
+		next
+		$sort_list = join($list_array, $separator)
+	else
+		$sort_list = $list
+	endif
+endfunction

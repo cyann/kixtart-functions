@@ -25,3 +25,6 @@ $x = setoption("nomacrosinstrings", "on")
 ## base64_encode($string)
 Convert a string to its Base64 equivalent (fast).
 
+## sort_list($list, optional $separator)
+Sort a list.
+
