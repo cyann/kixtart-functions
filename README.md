@@ -38,19 +38,22 @@ Convert a string to be RFC 1738 compliant.
 
 # Date and time functions
 > Date and time formatting functions, using a format compatible with ISO 8601 and RFC 3339 (yyyy-mm-dd hh:mm:ss).
+> Attention: Most of these are not taking timezones, leap seconds and other time-related quirks into account.
 
 ## date_time()
-Return the date and time (yyyy-mm-dd hh:mm:ss).
+Return the current date and time (yyyy-mm-dd hh:mm:ss).
 
 ## date()
 Return the date only (yyyy-mm-dd).
 
 ## serial_date($serial)
-Convert a date (yyyy/mm/dd or yyyy-mm-dd) to the number of days since day 1 or vice-versa.
+Return the number of days since day 1 of the specified date (yyyy-mm-dd) or vice-versa.
 
 ## unix_to_date_time($unix_time)
 Return a date (yyyy-mm-dd) from a UNIX timestamp.
 
 ## wmi_utc_to_date_time($wmi_utc)
-Adjust a WMI UTC time to the local time.
+Return the adjusted WMI UTC date time to the local time.
+
+---
 
