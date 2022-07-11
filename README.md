@@ -25,6 +25,9 @@ $x = setoption("nomacrosinstrings", "on")
 ## base64_encode($string)
 Return the Base64 conversion of the provided string (fast).
 
+## dn_to_ou($dn)
+Shorten an LDAP DN (Distinguished Name) to an OU name.
+
 ## sort_list($list, optional $separator)
 Return a sorted list of words separated by semicolon (;).
 

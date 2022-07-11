@@ -1,0 +1,19 @@
+; Shorten an LDAP DN (Distinguished Name) to an OU name.
+function dn_to_ou($dn)
+	; Example: CN=computer,OU=sub-ou,OU=ou,DC=sub-domain,DC=domain-root,DC=com > domain/Ou
+	dim $field_array, $index, $field_name, $field_value, $ou, $dc
+	$field_array = split($dn, ",")
+	if ubound($field_array)
+		for $index = 0 to ubound($field_array)
+			$field_name = split($field_array[$index], "=")[0]
+			$field_value = split($field_array[$index], "=")[1]
+			select
+				case $field_name = "OU"
+					$ou = "/" + $field_value + $ou
+				case $field_name = "DC" and not $dc
+					$dc = $field_value
+			endselect
+		next
+		$dn_to_ou = $dc + $ou
+	endif
+endfunction
