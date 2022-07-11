@@ -1,0 +1,16 @@
+; Convert a string to be RFC 1738 compliant.
+function url_encode($string)
+	; a-zA-Z0-9$-_.!*'(),: Keep as-is
+	; all other characters: Convert to %HH
+	dim $index, $char, $char_ascii, $new_char
+	for $index = 1 to len($string)
+		$char = substr($string, $index, 1)
+		$char_ascii = asc(substr($string, $index, 1))
+		if instr("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" + chr(36) + "-_.!*'(),", $char)
+			$new_char = $char
+		else
+			$new_char = "%" + dectohex($char_ascii)
+		endif
+		$url_encode = $url_encode + $new_char
+	next
+endfunction

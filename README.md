@@ -31,6 +31,9 @@ Sort a list.
 ## to_ascii7($string, optional $replacement_char)
 Normalize a string to 7-bit ASCII.
 
+## url_encode($string)
+Convert a string to be RFC 1738 compliant.
+
 ---
 
 # Date and time functions
