@@ -1,5 +1,5 @@
-# kixtart-functions
-Helper functions for the KiXtart scripting language.
+# KiXtart Functions
+Helper functions for the [KiXtart](http://www.kixtart.org/) scripting language.
 
 ## Requirements
 - KiXtart 4.61 or later.
@@ -23,10 +23,10 @@ $x = setoption("nomacrosinstrings", "on")
 # String conversion functions
 
 ## base64_encode($string)
-Convert a string to its Base64 equivalent (fast).
+Return the Base64 conversion of the provided string (fast).
 
 ## sort_list($list, optional $separator)
-Sort a list.
+Return a sorted list of words separated by semicolon (;).
 
 ## to_ascii7($string, optional $replacement_char)
 Normalize a string to 7-bit ASCII.
