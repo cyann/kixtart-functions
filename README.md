@@ -49,6 +49,9 @@ Return the current date and time (yyyy-mm-dd hh:mm:ss).
 ## date()
 Return the date only (yyyy-mm-dd).
 
+## exp($number, $exponent)
+Return a number raised to the power of exponent.
+
 ## hex_to_date_time($hex_string)
 Convert a reversed int8 hexadecimal string to a date time string.
 

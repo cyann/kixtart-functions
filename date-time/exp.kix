@@ -1,0 +1,14 @@
+; Return a number raised to the power of exponent.
+function exp($number, $exponent)
+	; Required by hex_to_dec().
+	$exp = cdbl(1)
+	$exponent = cint($exponent)
+	while $exponent > 0
+		$exp = $exp * $number
+		$exponent = $exponent - 1
+	loop
+	while $exponent < 0
+		$exp = $exp / $number
+		$exponent = $exponent + 1
+	loop
+endfunction
