@@ -78,3 +78,7 @@ Enumerate the native value of a registry key on x64.
 ---
 
 # Networking functions
+
+## subnet_mask_to_prefix($subnet_mask)
+Return the prefix (/x value) of a subnet mask.
+

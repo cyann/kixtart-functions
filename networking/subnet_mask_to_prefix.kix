@@ -1,0 +1,18 @@
+; Return the prefix (/x value) of a subnet mask.
+function subnet_mask_to_prefix($subnet_mask)
+	; 255.255.255.0 -> 24
+	dim $subnet_mask_array[], $byte
+	$subnet_mask_to_prefix = 0
+	$subnet_mask_array = split($subnet_mask, ".")
+	for each $byte in $subnet_mask_array
+		dim $bit, $mask
+		$byte = int($byte)
+		$mask = 1
+		for $bit = 0 to 7
+			if $byte & $mask
+				$subnet_mask_to_prefix = $subnet_mask_to_prefix + 1
+			endif
+			$mask = $mask * 2
+		next
+	next
+endfunction
