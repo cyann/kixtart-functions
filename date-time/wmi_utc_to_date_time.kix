@@ -1,0 +1,15 @@
+; Adjust a WMI UTC time to the local time.
+function wmi_utc_to_date_time($wmi_utc)
+	dim $date_time_object, $ticks_per_seconds, $epoch_difference, $wmi_ticks, $wmi_unix
+	$ticks_per_seconds = 10000000.0
+	$epoch_difference = cdbl("11644473600")
+	$date_time_object = createobject("WbemScripting.SWbemDateTime")
+	if not @error
+		$date_time_object.value = $wmi_utc
+		$wmi_ticks = $date_time_object.GetFileTime
+		$wmi_unix = (cdbl($wmi_ticks) / $ticks_per_seconds) - $epoch_difference
+		if not @error
+			$wmi_utc_to_date_time = unix_to_date_time($wmi_unix)
+		endif
+	endif
+endfunction
