@@ -18,3 +18,10 @@ $x = setoption("novarsinstring", "on")
 $x = setoption("nomacrosinstrings", "on")
 ```
 
+---
+
+# String conversion functions
+
+## base64_encode($string)
+Convert a string to its Base64 equivalent (fast).
+

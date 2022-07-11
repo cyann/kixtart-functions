@@ -1,0 +1,23 @@
+; Convert a string to its Base64 equivalent (fast).
+function base64_encode($string)
+	; Note: this function is much faster than using pure kix.
+	dim $xml_object, $xml_doc, $stream_object, $nul, $new_string
+	$xml_object = createobject("Msxml2.DOMDocument")
+	$stream_object = createobject("ADODB.Stream")
+	$stream_object.type = 2
+	$stream_object.charset = "us-ascii"
+	$nul = $stream_object.open
+	$nul = $stream_object.writetext($string)
+	$stream_object.position = 0
+	$stream_object.type = 1
+	$stream_object.position = 0
+	$new_string = $stream_object.read
+	$xml_doc = $xml_object.createelement("base64")
+	$xml_doc.datatype = "bin.base64"
+	$xml_doc.nodetypedvalue = $new_string
+	$base64_encode = $xml_doc.text
+	; Check if empty or invalid result, fall back to slow encoder.
+	if $string and $base64_encode = "" or len($base64_encode) < (1.33 * len($string))
+		$base64_encode = base64_encode_native($string)
+	endif
+endfunction
