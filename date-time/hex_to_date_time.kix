@@ -1,0 +1,13 @@
+; Convert a reversed int8 hexadecimal string to a date time string.
+function hex_to_date_time($hex_string)
+	; Ensure that all bytes are complete:
+	if len($hex_string) mod 2 <> 0
+		$hex_string = "" + "0" + $hex_string
+	endif
+	dim $index
+	$hex_to_date_time = ""
+	for $index = len($hex_string) - 1 to 1 step -2
+		$hex_to_date_time = $hex_to_date_time + substr($hex_string, $index, 2)
+	next
+	$hex_to_date_time = int8_to_date_time($hex_to_date_time)
+endfunction
