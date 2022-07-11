@@ -1,0 +1,24 @@
+; Return the SHA-256 hash of the specified file.
+function get_file_sha256($file_name)
+	if not exist($file_name)
+		exit 2
+	endif
+	dim $xml_object, $element_object, $crypto_object, $stream_object, $file_data, $nul
+	$stream_object = createobject("ADODB.Stream")
+	$stream_object.Type = 1
+	$stream_object.Open
+	$stream_object.LoadFromFile($file_name)
+	if @error
+		exit @error
+	endif
+	$file_data = $stream_object.Read
+	$stream_object.Close
+	$stream_object = ""
+	$crypto_object = CreateObject("System.Security.Cryptography.SHA256Managed")
+	$nul = $crypto_object.ComputeHash_2($file_data)
+	$xml_object = CreateObject("MSXML2.DOMDocument")
+	$element_object = $xml_object.CreateElement("tmp")
+	$element_object.DataType = "bin.hex"
+	$element_object.NodeTypedValue = $crypto_object.Hash
+	$get_file_sha256 = $element_object.Text
+endfunction

@@ -62,6 +62,9 @@ Return the adjusted WMI UTC date time to the local time.
 
 # File functions
 
+## get_file_sha256($file_name)
+Return the SHA-256 hash of the specified file.
+
 ## get_file_version_64($file, optional $field)
 Return the file version details on x64-redirected file.
 
