@@ -1,0 +1,18 @@
+; Return the file version details on x64-redirected file.
+function get_file_version_64($file, optional $field)
+	; This will look into in "C:\Program Files" instead of "C:\Program Files (x86)".
+	dim $x64
+	; x64 file redirection.
+	if @onwow64
+		if instr($file, "ProgramFiles%\")
+			$file = expandenvironmentvars("%ProgramW6432%") + substr($file, 15)
+		endif
+		$x64 = setoption("Wow64FileRedirection", "OFF")
+	endif
+	; Read the details.
+	$get_file_version_64 = getfileversion($file, $field)
+	; End of x64 file redirection.
+	if $x64
+		$x64 = setoption("Wow64FileRedirection", $x64)
+	endif
+endfunction

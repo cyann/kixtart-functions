@@ -62,6 +62,9 @@ Return the adjusted WMI UTC date time to the local time.
 
 # File functions
 
+## get_file_version_64($file, optional $field)
+Return the file version details on x64-redirected file.
+
 ## get_version_int($exe_path)
 Return an integer from a x.yy version, e.g. 4.67 -> 467.
 
