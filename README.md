@@ -55,6 +55,9 @@ Return a number raised to the power of exponent.
 ## hex_to_date_time($hex_string)
 Convert a reversed int8 hexadecimal string to a date time string.
 
+## hex_to_dec($hex)
+Convert an hexadecimal string to decimal.
+
 ## int8_to_date_time($hex_string)
 Convert an int8 hex string or date object to a date time string.
 

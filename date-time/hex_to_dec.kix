@@ -1,0 +1,16 @@
+; Convert an hexadecimal string to decimal.
+function hex_to_dec($hex)
+	dim $index, $int, $length, $digit
+	$hex_to_dec = cdbl(1)
+	$hex = lcase($hex)
+	$length = len($hex)
+	for $index = $length to 1 step -1
+		$digit = substr($hex, $index, 1)
+		$int = cdbl(instr("0123456789abcdef", $digit) - 1)
+		if $index = $length
+			$hex_to_dec = $hex_to_dec + $int
+		else
+			$hex_to_dec = $hex_to_dec + $int * exp(4, ($length - $index) * 2)
+		endif
+	next
+endfunction
