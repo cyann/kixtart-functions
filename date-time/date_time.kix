@@ -1,0 +1,4 @@
+; Return the date and time in ISO 8601 / RFC 3339 format (yyyy-mm-dd hh:mm:ss).
+function date_time()
+	$date_time = date() + " " + @time
+endfunction

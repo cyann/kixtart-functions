@@ -31,3 +31,10 @@ Sort a list.
 ## to_ascii7($string, optional $replacement_char)
 Normalize a string to 7-bit ASCII.
 
+---
+
+# Date and time functions
+> Date and time formatting functions, using a format compatible with ISO 8601 and RFC 3339 (yyyy-mm-dd hh:mm:ss).
+
+## date_time()
+Return the date and time (yyyy-mm-dd hh:mm:ss).
