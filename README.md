@@ -1,6 +1,9 @@
 # kixtart-functions
+Helper functions for the KiXtart scripting language.
 
 ## Requirements
 - KiXtart 4.61 or later.
 
-Helper functions for the KiXtart scripting language
+## Notes
+- Line endings (EOL) are CRLF.
+
