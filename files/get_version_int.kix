@@ -1,0 +1,7 @@
+; Return an integer from a x.yy version, e.g. 4.67 -> 467.
+function get_version_int($exe_path)
+	; Dumb function that work with any version of KiXtart.
+	dim $exe_version
+	$exe_version = getfileversion($exe_path, "BinFileVersion")
+	$get_version_int = (val(substr($exe_version, 1, 1)) * 100 + val(substr($exe_version, 3, 2)))
+endfunction
