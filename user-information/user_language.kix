@@ -1,0 +1,4 @@
+; Return the language selected by the user.
+function user_language()
+	$user_language = substr(@userlang, 5)
+endfunction
