@@ -6,6 +6,21 @@ Helper functions for the [KiXtart](http://www.kixtart.org/) scripting language.
 
 ## Notes
 - Line endings (EOL) are CRLF.
+## Caching
+Slow functions, typically those using the network or WMI, should have their results cached within if they are called multiple times.
+
+All the functions in this repository have their caching mechanisms removed to make them more simple to understand.
+
+Example to add a cache to a function:
+```kix
+function slow_function()
+	global $_slow_function
+	if not $_slow_function
+		; Do the thing and assign it to $_slow_function.
+	endif
+	$slow_function = $_slow_function
+endfunction
+```
 
 ## Prelude
 The main script should begin with these options to enforce good coding practices. The variable `$x` is used as a temporary variable to avoid displaying the values returned by setoption().
