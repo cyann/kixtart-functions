@@ -131,6 +131,7 @@ These functions should help gathering data about software, hardware, user, and n
 - **`cpu_speed_ghz()`** _Return the CPU speed in MHz._
 - **`device_type()`** _Return the computer type._
 - **`drive_free_gb()`** _Return the free space available on the system drive in GB._
+- **`drive_size_gb()`** _Return the system drive size in GB._
 
 ## Software information
 -- **`dotnet_version_list()`** _Return the list of .NET Framework versions._

@@ -1,0 +1,18 @@
+; Return the system drive size in GB.
+function drive_size_gb()
+	dim $wmi_object, $wmi_query, $disk, $nul
+	$wmi_object = getobject("winmgmts:{impersonationLevel=impersonate}!\\" + @wksta + "\root\cimv2")
+	if not @error
+		$wmi_query = $wmi_object.execquery("select * from Win32_LogicalDisk where DeviceID = '" + expandenvironmentvars("%SystemDrive%") + "'")
+		if not @error
+			for each $disk in $wmi_query
+				if not @error
+					$drive_size_gb = cdbl($disk.size)
+				endif
+			next
+		endif
+	endif
+	if $drive_size_gb
+		$drive_size_gb = cdbl_to_string($drive_size_gb / 1000000000, 0)
+	endif
+endfunction
