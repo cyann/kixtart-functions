@@ -1,0 +1,7 @@
+; Return 1 if running as admin or system.
+function is_admin()
+	$is_admin = 0
+	if user_privileges() = "Admin" or user_privileges() = "System"
+		$is_admin = 1
+	endif
+endfunction
