@@ -175,3 +175,7 @@ Return the prefix (/x value) of a subnet mask.
 # Information gathering functions
 These functions should help gathering data about software, hardware, user, and networking configurations.
 
+## User information
+
+### remote_session()
+Return 1 if running in Terminal Services/RDP.
