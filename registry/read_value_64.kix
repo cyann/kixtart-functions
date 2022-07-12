@@ -1,0 +1,11 @@
+; Read the 64-bit value of a registry key.
+function read_value_64($key, $name)
+	dim $onwow64
+	if @onwow64
+		$onwow64 = setoption("WOW64AlternateRegView", "on")
+	endif
+	$read_value_64 = readvalue($key, $name)
+	if @onwow64
+		$onwow64 = setoption("WOW64AlternateRegView", $onwow64)
+	endif
+endfunction

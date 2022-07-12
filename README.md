@@ -130,6 +130,9 @@ Return 1 if 2 files are identical.
 ## enum_key_64($key, $index)
 Enumerate the native value of a registry key on x64.
 
+## read_value_64($key, $name)
+Read the 64-bit value of a registry key.
+
 ---
 
 # Networking functions
