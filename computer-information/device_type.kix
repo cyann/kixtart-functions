@@ -1,0 +1,20 @@
+; Return the computer type [Desktop|Laptop|Server].
+function device_type()
+	; Note: Relies on ACPI battery.
+	if not isdeclared($_device_type)
+		global $_device_type
+		select
+			case readvalue("HKLM\System\CurrentControlSet\Control\ProductOptions", "ProductType") <> "WinNT"
+				$_device_type = "Server"
+			case keyexist("HKLM\SYSTEM\CurrentControlSet\Enum\ACPI\PNP0C0A\1\Control")
+				; Up to Windows 7.
+				$_device_type = "Laptop"
+			case readvalue("HKLM\SYSTEM\CurrentControlSet\Enum\ACPI\PNP0C0A\1", "Service") = "CmBatt"
+				; From Windows 8.
+				$_device_type = "Laptop"
+			case 1
+				$_device_type = "Desktop"
+		endselect
+	endif
+	$device_type = $_device_type
+endfunction
