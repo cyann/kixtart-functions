@@ -1,0 +1,8 @@
+; Return the architecture of the installed OS.
+function os_architecture()
+	if @onwow64
+		$os_architecture = "x64"
+	else
+		$os_architecture = "x86"
+	endif
+endfunction

@@ -138,7 +138,7 @@ These functions should help gathering data about software, hardware, user, and n
 ## Software information
 - **`dotnet_version_list()`** _Return the list of .NET Framework versions._
 - **`ie_version()`** _Return the version of Internet Explorer.
-
+- **`os_architecture()`** _Return the architecture of the installed OS._
 
 ## User information
 - **`remote_session()`** _Return 1 if running in Terminal Services/RDP._
