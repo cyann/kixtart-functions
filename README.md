@@ -139,6 +139,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## User information
 - **`remote_session()`** _Return 1 if running in Terminal Services/RDP._
+- **`user_proxy_mode()`** _Return the user proxy configuration mode._
 
 ## Active Directory information
 - **`domain_controller()`** _Return the name of the domain controller._

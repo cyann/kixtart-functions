@@ -1,0 +1,18 @@
+; Return the user proxy configuration mode.
+function user_proxy_mode()
+	; Return [DHCP|Auto|Manual].
+	dim $ie_settings_key, $connections_settings
+	$ie_settings_key = "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
+	$connections_settings = readvalue($ie_settings_key + "\Connections", "DefaultConnectionSettings")
+	select
+		case $connections_settings and val(substr($connections_settings, 18, 1)) & 8
+			; Dynamically set by DNS or DHCP.
+			$user_proxy_mode = "DHCP"
+		case not readvalue($ie_settings_key, "ProxyEnable")
+			; Automatic.
+			$user_proxy_mode = "Auto"
+		case 1
+			; Manually set by the user.
+			$user_proxy_mode = "Manual"
+	endselect
+endfunction
