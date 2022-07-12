@@ -136,6 +136,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 
 ## Windows information
+- **`is_legacy_windows()`** _Return 1 if running on a legacy version of Windows._
 - **`windows_architecture()`** _Architecture supported by Windows [x86|x64]._
 - **`windows_language()`** _Windows system language._
 - **`windows_product_suite()`** _Windows Product Suite number._

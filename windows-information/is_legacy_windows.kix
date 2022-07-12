@@ -1,0 +1,7 @@
+; Return 1 if running on legacy versions of Windows (prior to Windows 10 and Server 2016).
+function is_legacy_windows()
+	$is_legacy_windows = 1
+	if readvalue("HKLM\Software\Microsoft\Windows NT\CurrentVersion", "CurrentMajorVersionNumber") >= 10
+		$is_legacy_windows = 0
+	endif
+endfunction
