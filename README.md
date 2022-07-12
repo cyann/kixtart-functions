@@ -145,6 +145,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## User information
 - **`remote_session()`** _Return 1 if running in Terminal Services/RDP._
+- **`user_language()`** _Language selected by the user._
 - **`user_proxy_mode()`** _Configuration mode of the user proxy._
 
 
