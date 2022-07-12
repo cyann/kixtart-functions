@@ -1,0 +1,75 @@
+; Return the list of .NET Framework versions.
+function dotnet_version_list()
+	; How to: Determine which .NET Framework versions are installed
+	; https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed
+	dim $dotnet_reg_key, $dotnet_release
+	$dotnet_reg_key = "HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP"
+	$dotnet_release = readvalue($dotnet_reg_key + "\v4\Full", "Release")
+	;.NET Framework 4.5+
+	if $dotnet_release
+		select
+			; 4.5
+			case $dotnet_release = "378389"
+				$dotnet_version_list = "4.5"
+			; 4.5.1
+			case $dotnet_release = "378681"
+				$dotnet_version_list = "4.5.1Preview"
+			case $dotnet_release = "378675" or $dotnet_release = "378758"
+				$dotnet_version_list = "4.5.1"
+			; 4.5.2
+			case $dotnet_release = "379893"
+				$dotnet_version_list = "4.5.2"
+			; 4.6
+			case $dotnet_release = "381029" or $dotnet_release = "393289"
+				$dotnet_version_list = "4.6Preview"
+			case $dotnet_release = "393295" or $dotnet_release = "393297"
+				$dotnet_version_list = "4.6"
+			; 4.6.1
+			case $dotnet_release = "394254" or $dotnet_release = "394271"
+				$dotnet_version_list = "4.6.1"
+			; 4.6.2
+			case $dotnet_release = "394747" or $dotnet_release = "394748" or $dotnet_release = "394800"
+				$dotnet_version_list = "4.6.2Preview"
+			case $dotnet_release = "394802" or $dotnet_release = "394806"
+				$dotnet_version_list = "4.6.2"
+			; 4.7
+			case $dotnet_release = "460798" or $dotnet_release = "460805"
+				$dotnet_version_list = "4.7"
+			; 4.7.1Preview
+			case $dotnet_release = "461283" or $dotnet_release = "461290"
+				$dotnet_version_list = "4.7.1Preview"
+			; 4.7.1
+			case $dotnet_release = "461308" or $dotnet_release = "461310"
+				$dotnet_version_list = "4.7.1"
+			; 4.7.2
+			case $dotnet_release = "461808" or $dotnet_release = "461814"
+				$dotnet_version_list = "4.7.2"
+			; 4.8
+			case $dotnet_release = "528049" or $dotnet_release = "528040"
+				$dotnet_version_list = "4.8"
+			case 1
+				; New version, return the release number.
+				$dotnet_version_list = $dotnet_release
+		endselect
+	endif
+	;.NET Framework 4.0.0 to 4.0.3
+	if not $dotnet_version_list and readvalue($dotnet_reg_key + "\v4\Full", "Install")
+		$dotnet_version_list = "4.0"
+	endif
+	;.NET Framework 1-3.
+	dim $dotnet_key_enum, $index, $enum_version, $legacy_version
+	$dotnet_key_enum = enumkey($dotnet_reg_key, $index)
+	while not @error and $dotnet_key_enum
+		if instr($dotnet_key_enum, ".")
+			$enum_version = (substr($dotnet_key_enum, 2, 3))
+			if readvalue($dotnet_reg_key + "\" + $dotnet_key_enum, "Install")
+				$legacy_version = "" + $enum_version + "SP" + readvalue($dotnet_reg_key + "\" + $dotnet_key_enum, "SP")
+				$dotnet_version_list = add_flag($dotnet_version_list, $legacy_version)
+			endif
+		endif
+		$index = $index + 1
+		$dotnet_key_enum = enumkey($dotnet_reg_key, $index)
+	loop
+	; Sort the list
+	$dotnet_version_list = sort_list($dotnet_version_list)
+endfunction

@@ -131,6 +131,9 @@ These functions should help gathering data about software, hardware, user, and n
 - **`cpu_speed_ghz()`** _Return the CPU speed in MHz._
 - **`device_type()`** _Return the computer type._
 
+## Software information
+-- **`dotnet_version_list()`** _Return the list of .NET Framework versions._
+
 
 ## User information
 - **`remote_session()`** _Return 1 if running in Terminal Services/RDP._
