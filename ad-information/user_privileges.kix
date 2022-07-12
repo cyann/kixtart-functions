@@ -1,0 +1,29 @@
+; Return the user's privileges based on the effective AD group membership.
+function user_privileges()
+	; Warning: KiXtart relies on its Token Cache!
+	; It can be refreshed with deltree("HKCU\Software\KiXtart\TokenCache").
+	if instr(@sid, "S-1-5-21")
+		select
+			case ingroup(@wksta + "\" + sidtoname("S-1-5-32-544"))
+				$user_privileges = "Admin"
+			case ingroup(@wksta + "\" + sidtoname("S-1-5-32-551"))
+				$user_privileges = "Backup"
+			case ingroup(@wksta + "\" + sidtoname("S-1-5-32-549"))
+				$user_privileges = "Server"
+			case ingroup(@wksta + "\" + sidtoname("S-1-5-32-547"))
+				$user_privileges = "Power"
+			case ingroup(@wksta + "\" + sidtoname("S-1-5-32-550"))
+				$user_privileges = "Print"
+			case ingroup(@wksta + "\" + sidtoname("S-1-5-32-448"))
+				$user_privileges = "Account"
+			case ingroup(@wksta + "\" + sidtoname("S-1-5-32-545"))
+				$user_privileges = "User"
+			case ingroup(@wksta + "\" + sidtoname("S-1-5-32-555"))
+				$user_privileges = "Remote"
+			case ingroup(@wksta + "\" + sidtoname("S-1-5-32-546"))
+				$user_privileges = "Guest"
+		endselect
+	else
+		$user_privileges = "System"
+	endif
+endfunction
