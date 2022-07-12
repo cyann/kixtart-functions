@@ -61,6 +61,10 @@ Remove a flag from a semicolon separated string of flags.
 
 ---
 
+# Array functions
+
+---
+
 # Date and time functions
 > Date and time formatting functions, using a format compatible with ISO 8601 and RFC 3339 (yyyy-mm-dd hh:mm:ss).
 > Attention: Most of these are not taking timezones, leap seconds and other time-related quirks into account.
