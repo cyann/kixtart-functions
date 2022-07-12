@@ -1,0 +1,27 @@
+; Post data to a web service.
+function post_data($url, $data)
+	; About Native XMLHTTP
+	; https://docs.microsoft.com/en-us/previous-versions/ms537505(v=vs.85)
+	dim $encoded_data, $http_object
+	$post_data = 503
+	; Concatenate and strip high-ASCII characters.
+	$data = to_ascii7($data)
+	; Convert the data to base 64.
+	$encoded_data = base64_encode($data)
+	; Open the web service.
+	$http_object = createobject("Microsoft.XMLHTTP")
+	$http_object.open("POST", $url, 0)
+	; Content-Type must be set.
+	$http_object.setrequestheader("Content-Type", "application/x-www-form-urlencoded")
+	; Send the data.
+	$http_object.send("data=" + $encoded_data)
+	select
+		case @error = -2147352567
+			$post_data = 503
+		case @error
+			$post_data = 500
+		case 1
+			$post_data = $http_object.status
+	endselect
+	$post_data = cstr($post_data)
+endfunction

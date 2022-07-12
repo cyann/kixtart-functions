@@ -140,6 +140,9 @@ Export a registry key to a Regedit 5 format file (UCS-2 LE BOM).
 
 # Networking functions
 
+## post_data($url, $data)
+Post data to a web service.
+
 ## subnet_mask_to_prefix($subnet_mask)
 Return the prefix (/x value) of a subnet mask.
 
