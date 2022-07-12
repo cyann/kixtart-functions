@@ -1,0 +1,13 @@
+; Return the last anti-virus scan date.
+function av_scan_date()
+	dim $av_product
+	$av_product = av_product()
+	if $av_product = "SEP" or $av_product = "SAV"
+		; SEP 12.1+.
+		; LastSuccessfulScanDateTime format is ISO 8601 like "2019-09-16T13:29:07Z".
+		$av_scan_date = read_value_64("HKLM\SOFTWARE\Symantec\Symantec Endpoint Protection\CurrentVersion\public-opstate", "LastSuccessfulScanDateTime")
+		if $av_scan_date
+			$av_scan_date = substr($av_scan_date, 1, 10)
+		endif
+	endif
+endfunction
