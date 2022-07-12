@@ -12,6 +12,7 @@ Helper functions for the [KiXtart](http://www.kixtart.org/) scripting language.
 - Active Directory OU functions return stripped strings, for example:
 	- Full path: `\\domain.example.com\OU name\computer name`
 	- Stripped result: `domain\OU name\computer name`
+- Most of these functions are designed to return a string.
 
 ## Caching
 Slow functions, typically those using the network or WMI, should have their results cached within if they are called multiple times.
