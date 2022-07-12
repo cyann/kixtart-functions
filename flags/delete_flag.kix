@@ -1,0 +1,26 @@
+; Remove a flag from a semicolon separated string of flags.
+function delete_flag($string, $flag)
+	select
+		case $string = ""
+			; String is empty, return nothing.
+			$delete_flag = ""
+		case $flag = ""
+			; Empty flag, return as-is.
+			$delete_flag = $string
+		case $string = $flag
+			; String equals flag, return nothing.
+			$delete_flag = ""
+		case instr($string, $flag)
+			; Flag is present in string, remove it.
+			dim $string_flag, $string_array[]
+			$string_array = split($string, ";")
+			for each $string_flag in $string_array
+				if $string_flag <> $flag
+					$delete_flag = add_flag($delete_flag, $string_flag)
+				endif
+			next
+		case 1
+			; Flag is not present in string, return as-is.
+			$delete_flag = $string
+	endselect
+endfunction

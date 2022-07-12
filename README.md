@@ -56,6 +56,9 @@ Return a sorted list of words separated by semicolon (;).
  Add a flag to a semicolon separated string of flags.
 function
 
+## delete_flag($string, $flag)
+Remove a flag from a semicolon separated string of flags.
+
 ---
 
 # Date and time functions
