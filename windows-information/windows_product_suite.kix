@@ -1,0 +1,7 @@
+; Return the Windows Product Suite number.
+function windows_product_suite()
+	$windows_product_suite = ""
+	if @productsuite < 65536
+		$windows_product_suite = cstr(@productsuite)
+	endif
+endfunction

@@ -131,6 +131,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## Windows information
 - **`os_architecture()`** _Architecture supported by Windows [x86|x64]._
+- **`windows_product_suite()`** _Windows Product Suite number._
 - **`windows_version()`** _Version of Windows, including Embedded (e) and Server Core (c), for example `2012R2c`._
 
 ## Software information
