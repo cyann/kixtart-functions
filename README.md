@@ -6,6 +6,7 @@ Helper functions for the [KiXtart](http://www.kixtart.org/) scripting language.
 
 ## Notes
 - Line endings (EOL) are CRLF.
+- Indentation is using tabs.
 ## Caching
 Slow functions, typically those using the network or WMI, should have their results cached within if they are called multiple times.
 
