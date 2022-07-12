@@ -7,6 +7,8 @@ Helper functions for the [KiXtart](http://www.kixtart.org/) scripting language.
 ## Notes
 - Line endings (EOL) are CRLF.
 - Indentation is using tabs.
+- VS Code users can add the [KiXtart language syntax highlighting](https://marketplace.visualstudio.com/items?itemName=cyann.kixtart) extension.
+
 ## Caching
 Slow functions, typically those using the network or WMI, should have their results cached within if they are called multiple times.
 
