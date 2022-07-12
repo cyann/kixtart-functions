@@ -1,0 +1,44 @@
+; Convert a string to its Base64 equivalent (slow).
+function base64_encode_native($string)
+	; This function is written in native code without any dependencies.
+	dim $index, $length, $b64_char_array[], $cumulative_array[], $a, $b, $c, $base64_string
+	$b64_char_array = "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "/"
+	$length = len($string) - 1
+	redim $cumulative_array[$length / 3]
+	for $index = 0 to $length step 3
+		$a = asc(substr($string, $index + 1, 1))
+		if $index < $length
+			$b = asc(substr($string, $index + 2, 1))
+		else
+			$b = 0
+		endif
+		if $index < $length - 1
+			$c = asc(substr($string, $index + 3, 1))
+		else
+			$c = 0
+		endif
+		$cumulative_array[$index / 3] = $b64_char_array[$a / 4] +
+										$b64_char_array[($a & 3) * 16 + $b / 16] +
+										$b64_char_array[($b & 15) * 4 + $c / 64] +
+										$b64_char_array[$c & 63]
+	next
+	$index = ubound($cumulative_array)
+	select
+		case $length mod 3 = 0
+			$cumulative_array[$index] = left($cumulative_array[$index], 2) + "=="
+		case $length mod 3 = 1
+			$cumulative_array[$index] = left($cumulative_array[$index], 3) + "="
+	endselect
+	$base64_string = join($cumulative_array, "")
+	$length = len($base64_string)
+	if $length > 72
+		dim $base64_array[$length / 72]
+		$length = ubound($base64_array)
+		for $index = 0 to $length
+			$base64_array[$index] = substr($base64_string, ($index * 72) + 1, 72)
+		next
+		$base64_encode_native = join($base64_array, @crlf)
+	else
+		$base64_encode_native = $base64_string
+	endif
+endfunction

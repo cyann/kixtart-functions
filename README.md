@@ -22,6 +22,9 @@ $x = setoption("nomacrosinstrings", "on")
 
 # String conversion functions
 
+## base64_encode_native($string)
+Convert a string to its Base64 equivalent (slow).
+
 ## base64_encode($string)
 Return the Base64 conversion of the provided string (fast).
 
