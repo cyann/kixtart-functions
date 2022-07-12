@@ -120,6 +120,9 @@ Return a random temp file name.
 ## get_version_int($exe_path)
 Return an integer from a x.yy version, e.g. 4.67 -> 467.
 
+## is_file_identical($file1, $file2)
+Return 1 if 2 files are identical.
+
 ---
 
 # Registry functions
