@@ -9,6 +9,9 @@ Helper functions for the [KiXtart](http://www.kixtart.org/) scripting language.
 - Indentation is using tabs.
 - VS Code users can add the [KiXtart language syntax highlighting](https://marketplace.visualstudio.com/items?itemName=cyann.kixtart) extension.
 - List functions return a string of values separated by semicolons.
+- Active Directory OU functions return stripped strings, for example:
+	- Full path: `\\domain.example.com\OU name\computer name`
+	- Stripped result: `domain\OU name\computer name`
 
 ## Caching
 Slow functions, typically those using the network or WMI, should have their results cached within if they are called multiple times.
@@ -72,26 +75,15 @@ Functions that deal with strings containing zero or more semicolon-separated fla
 > Attention: Most of these are not taking timezones, leap seconds and other time-related quirks into account.
 
 - **`date_time_to_unix`**($date_time) _Return a UNIX timestamp from a date time string (yyyy-mm-dd hh:mm:ss)._
-
 - **`date_time`**([$yyyy_mm_dd]) _Return the current date and time (yyyy-mm-dd hh:mm:ss)._
-
 - **`date()`** _Return the date only (yyyy-mm-dd)._
-
 - **`exp`**($number, $exponent) _Return a number raised to the power of exponent._
-
 - **`hex_to_date_time`**($hex_string)_Convert a reversed int8 hexadecimal string to a date time string._
-
 - **`hex_to_dec`**($hex) _Convert an hexadecimal string to decimal._
-
 - **`int8_to_date_time`**($hex_string) _Convert an int8 hex string or date object to a date time string._
-
 - **`serial_date`**($serial) _Return the number of days since day 1 of the specified date (yyyy-mm-dd) or vice-versa._
-
-- **`unix_to_date_time($unix_time)
-Return a date (yyyy-mm-dd) from a UNIX timestamp.
-
-- **`wmi_utc_to_date_time($wmi_utc)
-Return the adjusted WMI UTC date time to the local time.
+- **`unix_to_date_time`**($unix_time) _Return a date (yyyy-mm-dd) from a UNIX timestamp._
+- **`wmi_utc_to_date_time`**($wmi_utc) _Return the adjusted WMI UTC date time to the local time.
 
 ---
 
@@ -102,7 +94,6 @@ Return the adjusted WMI UTC date time to the local time.
 - **`get_temp_file()`** _Return a random temp file name._
 - **`get_version_int`**($exe_path) _Return an integer from a x.yy version, e.g. `4.67` -> `467`._
 - **`is_file_identical`**($file1, $file2) _Return 1 if 2 files are identical._
-
 - **`wkix_exe_path()`** _Install, update, and return the path to the local `wkix.exe`._
 
 ---
@@ -119,7 +110,7 @@ Return the adjusted WMI UTC date time to the local time.
 Functions to send data to web services, and deal with ip addresses.
 
 - **`post_data`**($url, $data) _Post data to a web service._
-- **`subnet_mask_to_prefix`**($subnet_mask) _Return the prefix (/x value) of a subnet mask._
+- **`subnet_mask_to_prefix`**($subnet_mask) _Return the prefix (`/x` value) of a subnet mask._
 
 ---
 
@@ -133,7 +124,7 @@ These functions should help gathering data about software, hardware, user, and n
 - **`device_type()`** _Computer type [Desktop\Laptop|Server]._
 - **`drive_free_gb()`** _Available free space on the system drive, in GB._
 - **`drive_size_gb()`** _System drive size, in GB._
-- **`ram_size_gb()`** _RAM size, rounded in GB (e.g. 3.75 -> 4.0)._
+- **`ram_size_gb()`** _RAM size, rounded in GB (e.g. `3.75` -> `4.0`)._
 - **`serial_number()`** _Serial number._
 - **`shared_folder_list()`** _List of shared folders with their permissions._
 
@@ -153,3 +144,15 @@ These functions should help gathering data about software, hardware, user, and n
 - **`domain_controller()`** _Name of the domain controller._
 - **`user_id()`** _Active Directory user ID._
 - **`user_name()`** _Full name of the user._
+
+---
+
+## Abbreviations and acronyms
+- **DC**: Active Directory / LDAP **Domain Component**
+- **DN**: Active Directory / LDAP **Distinguished Name**, usually looking like `CN=computer,OU=sub-ou,OU=ou,DC=sub-domain,DC=domain-root,DC=com`
+- **GB**: Gigabyte, but these functions return results in gibibyte (GiB), 1 GiB = 1073741824 bytes
+- **GHz**: Gigahertz
+- **IE**: Internet Explorer
+- **OS**: Operating System, usually Windows
+- **OU**: Active Directory / LDAP **Organizational Unit**
+- **WMI**: Windows Management Instrumentation
