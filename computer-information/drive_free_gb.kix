@@ -1,0 +1,6 @@
+; Return the free space available on the system drive in GB.
+function drive_free_gb()
+	dim $drive_free_kib
+	$drive_free_kib = cdbl(getdiskspace(expandenvironmentvars("%SystemDrive%")))
+	$drive_free_gb = cdbl_to_string($drive_free_kib / 1000000000 * 1024, 1)
+endfunction
