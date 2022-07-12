@@ -1,0 +1,13 @@
+; Return the screen saver timeout in minutes (or blank if not enabled).
+function user_screensaver_timeout()
+	$user_screensaver_timeout = readvalue("HKCU\Software\Policies\Microsoft\Windows\Control Panel\Desktop", "ScreenSaveTimeOut")
+	if not $user_screensaver_timeout
+		$user_screensaver_timeout = readvalue("HKCU\Control Panel\Desktop", "ScreenSaveTimeOut")
+	endif
+	if not (readvalue("HKCU\Software\Policies\Microsoft\Windows\Control Panel\Desktop", "ScreenSaverIsSecure") and readvalue("HKCU\Control Panel\Desktop", "ScreenSaverIsSecure"))
+		$user_screensaver_timeout = ""
+	endif
+	if $user_screensaver_timeout
+		$user_screensaver_timeout = cstr(val($user_screensaver_timeout) / 60)
+	endif
+endfunction
