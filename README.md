@@ -8,6 +8,7 @@ Helper functions for the [KiXtart](http://www.kixtart.org/) scripting language.
 - Line endings (EOL) are CRLF.
 - Indentation is using tabs.
 - VS Code users can add the [KiXtart language syntax highlighting](https://marketplace.visualstudio.com/items?itemName=cyann.kixtart) extension.
+- List functions return a string of values separated by semicolons.
 
 ## Caching
 Slow functions, typically those using the network or WMI, should have their results cached within if they are called multiple times.
@@ -126,25 +127,25 @@ Functions to send data to web services, and deal with ip addresses.
 These functions should help gathering data about software, hardware, user, and networking configurations.
 
 ## Computer information
-- **`computer_name()`** _Return the computer name._
-- **`cpu_count()`** _Return the number of logical CPUs._
-- **`cpu_speed_ghz()`** _Return the CPU speed in MHz._
-- **`device_type()`** _Return the computer type._
-- **`drive_free_gb()`** _Return the free space available on the system drive in GB._
-- **`drive_size_gb()`** _Return the system drive size in GB._
-- **`ram_size_gb()`** _Return the RAM size rounded in GB (e.g. 3.75 -> 4.0)._
-- **`serial_number()`** _Return the computer serial number._
+- **`computer_name()`** _Computer name._
+- **`cpu_count()`** _Number of logical CPUs._
+- **`cpu_speed_ghz()`** _CPU speed, in MHz._
+- **`device_type()`** _Computer type [Desktop\Laptop|Server]._
+- **`drive_free_gb()`** _Available free space on the system drive, in GB._
+- **`drive_size_gb()`** _System drive size, in GB._
+- **`ram_size_gb()`** _RAM size, rounded in GB (e.g. 3.75 -> 4.0)._
+- **`serial_number()`** _Serial number._
 
 
 ## Software information
-- **`dotnet_version_list()`** _Return the list of .NET Framework versions._
-- **`ie_version()`** _Return the version of Internet Explorer.
-- **`os_architecture()`** _Return the architecture of the installed OS._
+- **`dotnet_version_list()`** _List of Microsoft .NET Framework versions._
+- **`ie_version()`** _Internet Explorer version._
+- **`os_architecture()`** _Architecture of the installed OS._
 
 ## User information
 - **`remote_session()`** _Return 1 if running in Terminal Services/RDP._
-- **`user_proxy_mode()`** _Return the user proxy configuration mode._
+- **`user_proxy_mode()`** _Configuration mode of the user proxy._
 
 
 ## Active Directory information
-- **`domain_controller()`** _Return the name of the domain controller._
+- **`domain_controller()`** _Name of the domain controller._
