@@ -1,0 +1,27 @@
+; Return the acronym of a string.
+function acronym($string)
+	dim $name_array[0], $word, $index, $char, $char_ascii
+	if len($string) <= 1
+		$acronym = $string
+		exit
+	endif
+	$name_array = split($string, " ")
+	for each $word in $name_array
+		$acronym = $acronym + substr($word, 1, 1)
+	next
+	; Check if the acronym is too short, try with CamelCase.
+	if len($acronym) < 2
+		$acronym = ""
+		for $index = 0 to len($string)
+			$char = substr($string, $index, 1)
+			$char_ascii = asc($char)
+			if ($char_ascii >= 65) and ($char_ascii <= 90)
+				$acronym = $acronym + $char
+			endif
+		next
+	endif
+	; If the acronym is still too short, return the first 3 characters.
+	if len($acronym) < 2
+		$acronym = substr($string, 3)
+	endif
+endfunction
