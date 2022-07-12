@@ -1,0 +1,22 @@
+; Return the product name of the browser based on it's path.
+function browser_name($browser_path)
+	; Normalize the name.
+	select
+		case instr($browser_path, "system32\LaunchWinApp.exe")
+			$browser_name = "Edge"
+		case instr($browser_path, "IE.") or instr($browser_path, "iexplore.exe")
+			$browser_name = "IE"
+		case instr($browser_path, "Firefox")
+			$browser_name = "Firefox"
+		case instr($browser_path, "VMware")
+			$browser_name = "(inHost)"
+		case instr($browser_path, "chrome")
+			$browser_name = "Chrome"
+		case instr($browser_path, "opera")
+			$browser_name = "Opera"
+		case instr($browser_path, "safari")
+			$browser_name = "Safari"
+		case 1
+			$browser_name = $browser_path
+	endselect
+endfunction
