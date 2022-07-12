@@ -28,6 +28,9 @@ Convert a string to its Base64 equivalent (slow).
 ## base64_encode($string)
 Return the Base64 conversion of the provided string (fast).
 
+## cdbl_to_string($cdbl, optional $decimals)
+Convert and round a double-precision floating-point value (cdbl) to a string with a dot (.) as numerical separator.
+
 ## dn_to_ou($dn)
 Shorten an LDAP DN (Distinguished Name) to an OU name.
 

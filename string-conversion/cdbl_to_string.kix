@@ -1,0 +1,29 @@
+; Convert and round a double-precision floating-point value (cdbl) to a string with a dot (.) as numerical separator.
+function cdbl_to_string($cdbl, optional $decimals)
+	dim $index, $digit, $string, $decimal_set
+	$cdbl = round($cdbl, $decimals)
+	if $decimals > 0
+		$decimal_set = 0
+	else
+		$decimal_set = 1
+	endif
+	$string = cstr($cdbl)
+	; Replace any kind of separator (e.g. comma) with a dot (.).
+	for $index = len($string) to 1 step -1
+		dim $digit_ascii, $new_digit
+		$digit = substr($string, $index, 1)
+		$digit_ascii = asc(substr($string, $index, 1))
+		if ($digit_ascii < 48 or $digit_ascii > 57)
+			if $decimal_set = 0
+				$new_digit = "."
+				$decimal_set = 1
+			endif
+		else
+			$new_digit = $digit
+		endif
+		$cdbl_to_string = $new_digit + $cdbl_to_string
+	next
+	if $decimals > 0 and $decimal_set = 0
+		$cdbl_to_string = $cdbl_to_string + ".0"
+	endif
+endfunction
