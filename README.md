@@ -123,6 +123,9 @@ Return an integer from a x.yy version, e.g. 4.67 -> 467.
 ## is_file_identical($file1, $file2)
 Return 1 if 2 files are identical.
 
+## wkix_exe_path()
+Install, update, and return the path to the local wkix.exe.
+
 ---
 
 # Registry functions

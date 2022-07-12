@@ -1,0 +1,58 @@
+; Install, update, and return the path to the local wkix.exe.
+function wkix_exe_path()
+	; Install a local copy in C:\Users\<user>\AppData\Local\KiXtart\wkix32.exe
+	; Dependency:
+	;	get_version_int()
+	if not isdeclared($_wkix_exe_path)
+		global $_wkix_exe_path
+		dim $wkix_exe, $minimum_kix_version, $latest_kix_version, $install, $nul
+		$wkix_exe = "wkix32.exe"
+		$minimum_kix_version = 461
+		$latest_kix_version = 467
+		; Try first with the system version.
+		dim $system_exe_path, $system_version
+		$system_exe_path = expandenvironmentvars("%SystemRoot%") + "\" + $wkix_exe
+		$system_version = get_version_int($system_exe_path)
+		; Check the system version.
+		if $system_version >= $minimum_kix_version
+			$_wkix_exe_path = $system_exe_path
+		endif
+		if not $_wkix_exe_path
+			; The system version is not usable, try with the local version.
+			dim $install_dir, $local_exe_path, $local_version
+			$install_dir = expandenvironmentvars("%LocalAppData%") + "\KiXtart"
+			$local_exe_path = $install_dir + "\" + $wkix_exe
+			$local_version = get_version_int($local_exe_path)
+			; Check the local version.
+			if $local_version >= $minimum_kix_version
+				$_wkix_exe_path = $local_exe_path
+			endif
+			if $local_version < $latest_kix_version
+				$install = 1
+			endif
+			if $install
+				; The local version is installed or too old, install it.
+				dim $remote_exe_path, $remote_version
+				$remote_exe_path = @scriptdir + "\" + $wkix_exe
+				if exist($remote_exe_path)
+					$remote_version = get_version_int($remote_exe_path)
+					; Check the remote version.
+					if $remote_version >= $latest_kix_version
+						; Create the directory.
+						if not exist($install_dir)
+							md $install_dir
+						endif
+						; Copy.
+						copy $remote_exe_path $local_exe_path
+						; Check if the local version is now usable.
+						$local_version = get_version_int($local_exe_path)
+						if $local_version >= $minimum_kix_version
+							$_wkix_exe_path = $local_exe_path
+						endif
+					endif
+				endif
+			endif
+		endif
+	endif
+	$wkix_exe_path = $_wkix_exe_path
+endfunction
