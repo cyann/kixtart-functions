@@ -142,6 +142,7 @@ These functions should help gathering data about software, hardware, user, and n
 - **`av_scan_date()`** _Anti-virus last scan date (yyyy-mm-dd)._
 - **`dotnet_version_list()`** _List of Microsoft .NET Framework versions._
 - **`ie_version()`** _Internet Explorer version._
+- **`office_version_list()`** _List of Microsoft Office versions._
 
 
 ## User information

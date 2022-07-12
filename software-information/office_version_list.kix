@@ -1,0 +1,86 @@
+; Return the list of Microsoft Office versions from Office 2000 to 2019.
+function office_version_list()
+	; Office version (ex: 2003:11.0.8433.0;2016CTRx64:16.0.4417.1000).
+	dim $office_reg, $office_version_array[], $office_version
+	$office_reg = "HKLM\SOFTWARE\Microsoft\Office\"
+	$office_version_array = "2000:9", "2002:10", "2003:11", "2007:12", "2010:14", "2010x64:14", "2013:15", "2013x64:15", "2013CTR:15", "2013CTRx64:15", "2016:16", "2016x64:16", "2016CTR:16", "2016CTRx64:16", "2019:17", "2019x64:17", "2019CTR:17", "2019CTRx64:17"
+	; Enumerate the versions.
+	for each $office_version in $office_version_array
+		dim $version_label, $version_int, $reg_key, $reg_name, $mso_path
+		$office_version = split($office_version, ":")
+		$version_label = $office_version[0] + ":"
+		$version_int = cint($office_version[1])
+		; Look directly in registry for CTR versions.
+		if instr($version_label, "CTR")
+			; Click-to-Run.
+			dim $reg_version
+			if $version_int <= 15
+				$reg_key = $office_reg + "15.0\ClickToRun\Configuration"
+			else
+				$reg_key = $office_reg + "ClickToRun\Configuration"
+			endif
+			; Version.
+			$reg_version = read_value_64($reg_key, "VersionToReport")
+			if not $reg_version
+				$reg_version = read_value_64($reg_key, "ClientVersionToReport")
+			endif
+			; x86 or x64.
+			if instr($reg_version, $version_int)
+				select
+					case instr($version_label, "x64") and read_value_64($reg_key, "Platform") = "x64"
+						$office_version_list = add_flag($office_version_list, $version_label + $reg_version)
+					case instr($version_label, "x64") = 0 and read_value_64($reg_key, "Platform") <> "x64"
+						$office_version_list = add_flag($office_version_list, $version_label + $reg_version)
+				endselect
+			endif
+		else
+			; MSI-based installations.
+			if $version_int < 11
+				; Office 2000 (9) and 2002/XP (10).
+				$reg_key = $office_reg + $version_int + ".0\Common\InstallRoot"
+				$reg_name = "Path"
+			else
+				; Office 2003 (11), 2007 (12), 2010 (14) and 2016 (16).
+				$reg_key = $office_reg + $version_int + ".0\Common\FilesPaths"
+				$reg_name = "mso.dll"
+			endif
+			; Product Edition.
+			if instr($version_label, "x64")
+				$mso_path = read_value_64($reg_key, $reg_name)
+			else
+				$mso_path = readvalue($reg_key, $reg_name)
+			endif
+			; Files.
+			if $mso_path
+				if instr($mso_path, ".dll")
+					$mso_path = substr($mso_path, 1, instrrev($mso_path, "\"))
+				endif
+				if exist($mso_path)
+					; Enumerate the DLLs.
+					dim $highest_serial_date, $highest_version, $dll_name, $dll_serial_date, $dll_version
+					$dll_name = dir($mso_path + "*.dll")
+					while $dll_name <> "" and @error = 0
+						$dll_serial_date = serial_date(split(getfiletime($mso_path + $dll_name), " ")[0])
+						if $dll_serial_date > $highest_serial_date
+							$highest_serial_date = $dll_serial_date
+							$dll_version = getfileversion($mso_path + $dll_name, "BinFileVersion")
+							if instr($dll_version, $version_int) = 1
+								if $highest_version
+									if compare_version($highest_version, $dll_version)
+										$highest_version = $dll_version
+									endif
+								else
+									$highest_version = $dll_version
+								endif
+							endif
+						endif
+						$dll_name = dir()
+					loop
+					if $highest_version
+						$office_version_list = add_flag($office_version_list, $version_label + $highest_version)
+					endif
+				endif
+			endif
+		endif
+	next
+endfunction
