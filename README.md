@@ -138,6 +138,7 @@ These functions should help gathering data about software, hardware, user, and n
 - **`windows_version()`** _Version of Windows, including Embedded (e) and Server Core (c), for example `2012R2c`._
 
 ## Software information
+- **`av_product()`** _Anti-virus product name._
 - **`dotnet_version_list()`** _List of Microsoft .NET Framework versions._
 - **`ie_version()`** _Internet Explorer version._
 

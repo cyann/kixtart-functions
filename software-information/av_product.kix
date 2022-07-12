@@ -1,0 +1,41 @@
+; Return the product name of the anti-virus.
+function av_product()
+	dim $wmi_path, $wmi_object, $wmi_query, $query_result
+	; Force detection of SEP 12.1+.
+	if read_value_64("HKLM\SOFTWARE\Symantec\Symantec Endpoint Protection\CurrentVersion\public-opstate", "DeployRunningVersion")
+		$av_product = "SEP"
+	endif
+	; Try to detect non-SEP products on PCs.
+	if not $av_product and device_type() <> "Server"
+		if val(readvalue("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentVersion")) < 6
+			$wmi_path = "root\SecurityCenter"
+		else
+			$wmi_path = "root\SecurityCenter2"
+		endif
+		$wmi_object = getobject("winmgmts:{impersonationlevel=impersonate}!\\" + @wksta + "\" + $wmi_path)
+		if not @error
+			$wmi_query = $wmi_object.execquery("select * from antivirusproduct", , 48)
+			if not @error
+				for each $query_result in $wmi_query
+					if not $av_product
+						$av_product = acronym($query_result.displayname)
+					endif
+				next
+			endif
+		endif
+	endif
+	; Detection for servers or when WMI fails.
+	if not $av_product
+		select
+			case read_value_64("HKLM\SOFTWARE\Symantec\Symantec Endpoint Protection\CurrentVersion\public-opstate", "DeployRunningVersion")
+				; SEP 12.1
+				$av_product = "SEP"
+			case read_value_64("HKLM\SOFTWARE\Symantec\Symantec Endpoint Protection\SMC", "ProductVersion")
+				; SEP 11 and 12.
+				$av_product = "SEP"
+			case readvalue("HKLM\SOFTWARE\Symantec\InstalledApps", "SAVCE")
+				; SAV 9 and 10.
+				$av_product = "SAV"
+		endselect
+	endif
+endfunction
