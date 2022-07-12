@@ -1,0 +1,65 @@
+; Return the list of shared folders with their permissions.
+function shared_folder_list()
+	; Warning: this function may return a very long list on file servers.
+	dim $share_index, $shares_reg_key, $share
+	$shares_reg_key = "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Shares"
+	$share = enumvalue($shares_reg_key, $share_index)
+	while not @error
+		dim $permission, $key_data, $key_array, $key_index, $share_rid
+		$key_data = readvalue($shares_reg_key + "\Security", $share)
+		if len($key_data)
+			$key_data = join(split($key_data, "000000001400"), "<split>BI")
+			$key_data = join(split($key_data, "000000002400"), "<split>DO")
+			$key_array = split($key_data, "<split>")
+			for $key_index = 1 to ubound($key_array)
+				$share_rid = substr($key_array[$key_index], 25, 4)
+				if len($key_array[$key_index]) > 29
+					dim $security_byte
+					$security_byte = substr($key_array[$key_index], 3, 2)
+					select
+						case $security_byte = "ff"
+							$permission = $permission + "F"
+						case $security_byte = "bf"
+							$permission = $permission + "C"
+						case $security_byte = "a9"
+							$permission = $permission + "R"
+						case $security_byte = "00"
+						case 1
+							$permission = $permission + "S"
+					endselect
+				endif
+			next
+			select
+				case instr($permission, "F")
+					$permission = "Full"
+				case instr($permission, "C")
+					$permission = "Change"
+				case instr($permission, "R")
+					$permission = "Read"
+				case instr($permission, "S")
+					$permission = "Special"
+			endselect
+		else
+			$permission = "_"
+		endif
+		if not len($key_data)
+			$permission = "Full"
+		endif
+		dim $share_data
+		$share_data = readvalue($shares_reg_key, $share)
+		select
+			case instr($share_data, "Printer Drivers") or instr($share_data, "LocalsplOnly")
+				$share = ""
+			case instr($share_data, ":\|")
+				$permission = $permission + "Wide"
+		endselect
+		if not (instr($share_rid, "0515") and not instr($share_rid, "0520")) or not $key_data
+			$permission = "Everyone" + $permission
+		endif
+		if $share
+			$shared_folder_list = add_flag($shared_folder_list, $share + ":" + $permission)
+		endif
+		$share_index = $share_index + 1
+		$share = enumvalue($shares_reg_key, $share_index)
+	loop
+endfunction
