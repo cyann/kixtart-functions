@@ -131,7 +131,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## Windows information
 - **`os_architecture()`** _Architecture supported by Windows [x86|x64]._
-
+- **`windows_version()`** _Version of Windows, including Embedded (e) and Server Core (c), for example `2012R2c`._
 
 ## Software information
 - **`dotnet_version_list()`** _List of Microsoft .NET Framework versions._

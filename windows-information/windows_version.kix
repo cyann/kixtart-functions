@@ -1,0 +1,84 @@
+; Return the marketed version of Windows, including Embedded and Server Core.
+function windows_version()
+	; Warning: Latest versions for Windows 11/2019/2022 or later are reported as 10/2016.
+	; Operating System Version
+	; https://docs.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version
+	dim $product_type, $major_version
+	$product_type = readvalue("HKLM\System\CurrentControlSet\Control\ProductOptions", "ProductType")
+	$windows_version = readvalue("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentVersion")
+	$major_version = readvalue("HKLM\Software\Microsoft\Windows NT\CurrentVersion", "CurrentMajorVersionNumber")
+	select
+		case $major_version = 10
+			if $product_type = "WinNT"
+				$windows_version = "10"
+			else
+				$windows_version = "2016"
+			endif
+		case $major_version
+			; Undefined new versions.
+			$windows_version = $major_version
+		case instr($windows_version, "6.3")
+			if $product_type = "WinNT"
+				$windows_version = "8.1"
+			else
+				$windows_version = "2012R2"
+			endif
+		case instr($windows_version, "6.2")
+			if $product_type = "WinNT"
+				$windows_version = "8"
+			else
+				$windows_version = "2012"
+			endif
+		case instr($windows_version, "6.1")
+			if $product_type = "WinNT"
+				$windows_version = "7"
+			else
+				$windows_version = "2008R2"
+			endif
+		case instr($windows_version, "6.0")
+			if $product_type = "WinNT"
+				$windows_version = "Vista"
+			else
+				$windows_version = "2008"
+			endif
+		case instr($windows_version, "5.2")
+			if $product_type = "WinNT"
+				$windows_version = "XP"
+			else
+				$windows_version = "2003"
+			endif
+		case instr($windows_version, "5.1")
+			$windows_version = "XP"
+		case instr($windows_version, "5.0")
+			$windows_version = "2000"
+	endselect
+	; Detect Embedded and Core.
+	select
+		case @productsuite & 64
+			$windows_version = $windows_version + "e"
+		case instr(readvalue("HKLM\Software\Microsoft\Windows NT\CurrentVersion", "ProductName"), "Embedded")
+			$windows_version = $windows_version + "e"
+		case instr($windows_version, "2008")
+			; Server Core on 2008.
+			; Determining Whether Server Core Is Running
+			; https://docs.microsoft.com/en-us/previous-versions/windows/desktop/legacy/ee391629(v=vs.85)
+			if instr(readvalue("HKLM\Software\Microsoft\Windows NT\CurrentVersion", "InstallationType"), "Server Core")
+				$windows_version = $windows_version + "c"
+			endif
+		case 1
+			; Server Core from 2012.
+			; Determining Whether Server Core Is Running
+			; https://docs.microsoft.com/en-us/previous-versions/windows/desktop/legacy/hh846315(v=vs.85)
+			if not read_value_64("HKLM\Software\Microsoft\Windows NT\CurrentVersion\Server\ServerLevels", "Server-Gui-Shell")
+				if not exist(expandenvironmentvars("%SystemRoot%") + "\explorer.exe")
+					$windows_version = $windows_version + "c"
+				endif
+			endif
+	endselect
+	; Additional check for Server Core with corrupted registry (look for explorer.exe).
+	if $product_type <> "WinNT" and not instr($windows_version, "c")
+		if not exist(expandenvironmentvars("%SystemRoot%") + "\explorer.exe")
+			$windows_version = $windows_version + "c"
+		endif
+	endif
+endfunction
