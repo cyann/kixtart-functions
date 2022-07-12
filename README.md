@@ -127,6 +127,8 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## Computer information
 - **`computer_name()`** _Return the computer name._
+- **`cpu_count()`** _Return the number of logical CPUs._
+
 
 ## User information
 - **`remote_session()`** _Return 1 if running in Terminal Services/RDP._

@@ -1,0 +1,15 @@
+; Return the number of logical CPUs.
+function cpu_count()
+	; Intel i5 returns 4: 2 cores x 2 threads = 4 logical CPUs.
+	dim $cpu_key, $cpu, $index, $has_cpu
+	$cpu_key = "HKLM\HARDWARE\DESCRIPTION\System\CentralProcessor"
+	$cpu = enumkey($cpu_key, $index)
+	while not @error and $cpu
+		$has_cpu = 1
+		$index = $index + 1
+		$cpu = enumkey($cpu_key, $index)
+	loop
+	if $has_cpu
+		$cpu_count = cstr($index)
+	endif
+endfunction
