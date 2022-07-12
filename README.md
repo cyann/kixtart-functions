@@ -129,10 +129,14 @@ These functions should help gathering data about software, hardware, user, and n
 - **`shared_folder_list()`** _List of shared folders with their permissions._
 
 
+## Windows information
+- **`os_architecture()`** _Architecture supported by Windows [x86|x64]._
+
+
 ## Software information
 - **`dotnet_version_list()`** _List of Microsoft .NET Framework versions._
 - **`ie_version()`** _Internet Explorer version._
-- **`os_architecture()`** _Architecture of the installed OS._
+
 
 ## User information
 - **`remote_session()`** _Return 1 if running in Terminal Services/RDP._

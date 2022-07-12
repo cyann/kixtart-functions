@@ -1,0 +1,8 @@
+; Return the architecture supported by Windows.
+function os_architecture()
+	; Warning: Windows ARM is not reported by this function.
+	$os_architecture = "x86"
+	if @onwow64
+		$os_architecture = "x64"
+	endif
+endfunction
