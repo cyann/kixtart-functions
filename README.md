@@ -147,6 +147,7 @@ These functions should help gathering data about software, hardware, user, and n
 - **`user_language()`** _User selected language._
 - **`user_proxy_mode()`** _Configuration mode of the user proxy._
 - **`user_screensaver_timeout()`** _Screen saver timeout in minutes._
+- **`user_screensaver()`** _User selected screen saver._
 
 
 ## Active Directory information

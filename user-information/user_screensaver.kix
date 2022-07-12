@@ -1,0 +1,7 @@
+; Return the user selected screen saver.
+function user_screensaver()
+	$user_screensaver = readvalue("HKCU\Software\Policies\Microsoft\Windows\Control Panel\Desktop", "SCRNSAVE.EXE")
+	if not $user_screensaver
+		$user_screensaver = readvalue("HKCU\Control Panel\Desktop", "SCRNSAVE.EXE")
+	endif
+endfunction
