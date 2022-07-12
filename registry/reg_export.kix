@@ -1,0 +1,7 @@
+; Export a registry key to a Regedit 5 format file (UCS-2 LE BOM).
+function reg_export($reg_key, $reg_file)
+	dim $reg_command
+	$reg_command = expandenvironmentvars("%comspec%") + " /c " + expandenvironmentvars("%SystemRoot%") + "\system32\reg.exe export " + chr(34) + $reg_key + chr(34) + " " + chr(34) + $reg_file + chr(34) + " /y >nul 2>&1"
+	shell $reg_command
+	$reg_export = @error
+endfunction

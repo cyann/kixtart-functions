@@ -133,6 +133,9 @@ Enumerate the native value of a registry key on x64.
 ## read_value_64($key, $name)
 Read the 64-bit value of a registry key.
 
+## reg_export($reg_key, $reg_file)
+Export a registry key to a Regedit 5 format file (UCS-2 LE BOM).
+
 ---
 
 # Networking functions
