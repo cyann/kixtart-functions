@@ -89,7 +89,6 @@ Functions that deal with strings containing zero or more semicolon-separated fla
 ---
 
 # File functions
-- **`compare_version`**($initial_version, $compared_version) _Compare 2 version numbers (x.x.x.x)._
 - **`get_file_sha256`**($file_name) _Return the SHA-256 hash of the specified file._
 - **`get_file_version_64`**($file, optional $field) _Return the file version details on x64-redirected file._
 - **`get_temp_file()`** _Return a random temp file name._
@@ -100,13 +99,14 @@ Functions that deal with strings containing zero or more semicolon-separated fla
 ---
 
 # Registry functions
-
 - **`enum_key_64`**($key, $index) _Enumerate the native value of a registry key on x64._
 - **`read_value_64`**($key, $name) _Read the 64-bit value of a registry key._
 - **`reg_export`**($reg_key, $reg_file) _Export a registry key to a Regedit 5 format file (UCS-2 LE BOM)._
 
 ---
 
+# Version functions
+- **`compare_version`**($initial_version, $compared_version) _Compare 2 version numbers (x.x.x.x)._
 # Networking functions
 Functions to send data to web services, and deal with ip addresses.
 
