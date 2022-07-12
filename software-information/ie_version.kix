@@ -1,0 +1,6 @@
+; Return the version of Internet Explorer.
+function ie_version()
+	dim $ie_path
+	$ie_path = readvalue("HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\IEXPLORE.EXE", "")
+	$ie_version = getfileversion($ie_path, "BinFileVersion")
+endfunction

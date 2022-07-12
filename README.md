@@ -133,13 +133,16 @@ These functions should help gathering data about software, hardware, user, and n
 - **`drive_free_gb()`** _Return the free space available on the system drive in GB._
 - **`drive_size_gb()`** _Return the system drive size in GB._
 
+
 ## Software information
--- **`dotnet_version_list()`** _Return the list of .NET Framework versions._
+- **`dotnet_version_list()`** _Return the list of .NET Framework versions._
+- **`ie_version()`** _Return the version of Internet Explorer.
 
 
 ## User information
 - **`remote_session()`** _Return 1 if running in Terminal Services/RDP._
 - **`user_proxy_mode()`** _Return the user proxy configuration mode._
+
 
 ## Active Directory information
 - **`domain_controller()`** _Return the name of the domain controller._
