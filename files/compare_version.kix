@@ -1,0 +1,25 @@
+; Compare 2 version numbers (x.x.x.x).
+function compare_version($initial_version, $compared_version)
+	; Return 1 if the compared version is higher, 0 if equal, -1 if lower.
+	dim $initial_version_array[], $compared_version_array[], $max_version_fields, $index
+	if instr($initial_version, "_")
+		$initial_version = join(split($initial_version, "_"), ".")
+	endif
+	if instr($compared_version, "_")
+		$compared_version = join(split($compared_version, "_"), ".")
+	endif
+	$initial_version_array = split($initial_version, ".")
+	$compared_version_array = split($compared_version, ".")
+	$max_version_fields = iif(ubound($initial_version_array) > ubound($compared_version_array), ubound($initial_version_array), ubound($compared_version_array))
+	for $index = 0 to $max_version_fields
+		select
+			case cint($initial_version_array[$index]) < cint($compared_version_array[$index])
+				$compare_version = 1
+				exit
+			case cint($initial_version_array[$index]) > cint($compared_version_array[$index])
+				$compare_version = -1
+				exit
+		endselect
+	next
+	$compare_version = 0
+endfunction

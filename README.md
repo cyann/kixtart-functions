@@ -48,7 +48,6 @@ Convert a string to be RFC 1738 compliant.
 ## Flag functions
 Functions that deal with strings containing zero or more semicolon-separated flags. For example `flag1;flag2;flag3`.
 
-
 ## sort_list($list, optional $separator)
 Return a sorted list of words separated by semicolon (;).
 
@@ -105,6 +104,9 @@ Return the adjusted WMI UTC date time to the local time.
 ---
 
 # File functions
+
+## compare_version($initial_version, $compared_version)
+Compare 2 version numbers (x.x.x.x).
 
 ## get_file_sha256($file_name)
 Return the SHA-256 hash of the specified file.
