@@ -1,0 +1,11 @@
+; Return a random temp file name.
+function get_temp_file()
+	dim $nul
+	; Seed the random number generator.
+	$nul = srnd(@msecs)
+	; Discard the first generated value.
+	$nul = rnd(@msecs)
+	$get_temp_file = expandenvironmentvars("%temp%") + "\~" + @scriptname + "~" + cstr(rnd(9)) + cstr(rnd(9)) + cstr(rnd(9)) + cstr(rnd(9)) + ".tmp"
+	; Delete any pre-existing file with the same random name.
+	del $get_temp_file
+endfunction

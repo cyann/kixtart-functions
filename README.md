@@ -114,6 +114,9 @@ Return the SHA-256 hash of the specified file.
 ## get_file_version_64($file, optional $field)
 Return the file version details on x64-redirected file.
 
+## get_temp_file()
+Return a random temp file name.
+
 ## get_version_int($exe_path)
 Return an integer from a x.yy version, e.g. 4.67 -> 467.
 
