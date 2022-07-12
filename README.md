@@ -150,6 +150,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## Active Directory information
 - **`domain_controller()`** _Name of the domain controller._
+- **`site_name()`** _Active Directory site name._
 - **`user_id()`** _Active Directory user ID._
 - **`user_name()`** _Full name of the user._
 

@@ -1,0 +1,4 @@
+; Return the site name from Active Directory.
+function site_name()
+	$site_name = @site
+endfunction
