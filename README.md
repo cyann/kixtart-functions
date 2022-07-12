@@ -129,7 +129,7 @@ These functions should help gathering data about software, hardware, user, and n
 ## Computer information
 - **`computer_name()`** _Computer name._
 - **`cpu_count()`** _Number of logical CPUs._
-- **`cpu_speed_ghz()`** _CPU speed, in MHz._
+- **`cpu_speed_ghz()`** _CPU speed, in GHz._
 - **`device_type()`** _Computer type [Desktop\Laptop|Server]._
 - **`drive_free_gb()`** _Available free space on the system drive, in GB._
 - **`drive_size_gb()`** _System drive size, in GB._
