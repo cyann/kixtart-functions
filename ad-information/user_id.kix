@@ -1,0 +1,6 @@
+; Return the Active Directory user ID.
+function user_id()
+	if instr(@sid, "S-1-5-21")
+		$user_id = @userid
+	endif
+endfunction
