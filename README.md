@@ -155,6 +155,9 @@ These functions should help gathering data about software, hardware, user, and n
 - **`user_id()`** _Active Directory user ID._
 - **`user_name()`** _Full name of the user._
 
+## Misc. information
+- **`invocation_type()`** _Script invocation type._
+
 ---
 
 ## Abbreviations and acronyms

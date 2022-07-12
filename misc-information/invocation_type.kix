@@ -1,0 +1,24 @@
+; Return the script invocation type.
+function invocation_type()
+	; System|Remote|Auto|Local: System, Remote (RDP), autologon or local logon.
+	; Logon|Manual: User logon or manual run.
+	dim $default_user, $default_domain, $auto_logon
+	$default_user = read_value_64("HKLM\Software\Microsoft\Windows NT\CurrentVersion\winlogon", "DefaultUserName")
+	$default_domain = read_value_64("HKLM\Software\Microsoft\Windows NT\CurrentVersion\winlogon", "DefaultDomainName")
+	$auto_logon = read_value_64("HKLM\Software\Microsoft\Windows NT\CurrentVersion\winlogon", "AutoAdminLogon")
+	select
+		case not instr(@sid, "S-1-5-21")
+			$invocation_type = "System"
+		case remote_session()
+			$invocation_type = "Remote"
+		case $default_user and $default_domain and $auto_logon = 1
+			$invocation_type = "Auto"
+		case 1
+			$invocation_type = "Local"
+	endselect
+	if @logonmode
+		$invocation_type = $invocation_type + "Logon"
+	else
+		$invocation_type = $invocation_type + "Manual"
+	endif
+endfunction
