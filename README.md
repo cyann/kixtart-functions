@@ -170,3 +170,8 @@ Post data to a web service.
 ## subnet_mask_to_prefix($subnet_mask)
 Return the prefix (/x value) of a subnet mask.
 
+---
+
+# Information gathering functions
+These functions should help gathering data about software, hardware, user, and networking configurations.
+
