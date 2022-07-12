@@ -1,0 +1,5 @@
+; Return the CPU speed in MHz.
+function cpu_speed_ghz()
+	$cpu_speed_ghz = cdbl(readvalue("HKLM\HARDWARE\DESCRIPTION\System\CentralProcessor\0", "~MHz"))
+	$cpu_speed_ghz = cdbl_to_string($cpu_speed_ghz / 1000, 1)
+endfunction
