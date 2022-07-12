@@ -125,7 +125,8 @@ Functions to send data to web services, and deal with ip addresses.
 # Information gathering functions
 These functions should help gathering data about software, hardware, user, and networking configurations.
 
-## User information
+## Computer information
+- **`computer_name()`** _Return the computer name._
 
-### remote_session()
-Return 1 if running in Terminal Services/RDP.
+## User information
+- **`remote_session()`** _Return 1 if running in Terminal Services/RDP._

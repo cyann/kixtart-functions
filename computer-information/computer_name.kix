@@ -1,0 +1,4 @@
+; Return the computer name.
+function computer_name()
+	$computer_name = @wksta
+endfunction
