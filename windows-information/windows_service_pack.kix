@@ -1,0 +1,14 @@
+; Return the service pack version of Windows.
+function windows_service_pack()
+	if read_value_64("HKLM\Software\Microsoft\Windows NT\CurrentVersion", "CurrentMajorVersionNumber")
+		; Windows 10/2016.
+		$windows_service_pack = read_value_64("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ReleaseId")
+	else
+		; Note: on x64 this registry key is not available on the 32-bit redirection.
+		$windows_service_pack = read_value_64("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CSDVersion")
+		$windows_service_pack = substr($windows_service_pack, len($windows_service_pack), 1)
+	endif
+	if not $windows_service_pack
+		$windows_service_pack = "0"
+	endif
+endfunction
