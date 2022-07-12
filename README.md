@@ -40,6 +40,9 @@ Shorten an LDAP DN (Distinguished Name) to an OU name.
 ## to_ascii7($string, optional $replacement_char)
 Normalize a string to 7-bit ASCII.
 
+## trim_dc($dc)
+Shorten an Active Directory DC (Domain Component).
+
 ## url_encode($string)
 Convert a string to be RFC 1738 compliant.
 

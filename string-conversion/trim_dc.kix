@@ -1,0 +1,14 @@
+; Shorten an Active Directory DC (Domain Component).
+function trim_dc($dc)
+	; Example: domain.example.com/Ou/UserID > domain/Ou
+	dim $object_array, $index
+	$object_array = split($dc, "/")
+	if ubound($object_array)
+		for $index = 1 to ubound($object_array) - 1
+			$trim_dc = $trim_dc + "/" + $object_array[$index]
+		next
+		$trim_dc = split($object_array[0], ".")[0] + $trim_dc
+	else
+		$trim_dc = $dc
+	endif
+endfunction
