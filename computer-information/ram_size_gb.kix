@@ -1,0 +1,56 @@
+; Return the RAM size rounded in GB (e.g. 3.75 -> 4.0).
+function ram_size_gb()
+	dim $memory_map
+	; Get the memory value from the registry.
+	$memory_map = readvalue("HKLM\hardware\resourcemap\system resources\physical memory", ".Translated")
+	; Check for invalid reading and return.
+	if not @error and len($memory_map)
+		dim $stepping, $start, $bytes, $size_index, $end, $index, $memory_block
+		; Stepping value for the architecture.
+		if readvalue("HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment", "PROCESSOR_ARCHITECTURE") = "AMD64"
+			$stepping = 40
+			$start = 33
+			$bytes = cdbl(0)
+			$size_index = 10
+		else
+			$stepping = 32
+			$start = 41
+			$bytes = cdbl(737280)
+			$size_index = 2
+		endif
+		$end = len($memory_map) - 8
+		for $index = $start to $end step $stepping
+			$memory_block = substr($memory_map, $index, $stepping)
+			if substr($memory_block, $size_index, 1) > 3
+				$bytes = $bytes + cdbl(val('&' + substr($memory_block, $stepping - 1, 2))) * cdbl("4294967296")
+								+ cdbl(val('&' + substr($memory_block, $stepping - 3, 2))) * 16777216
+								+ cdbl(val('&' + substr($memory_block, $stepping - 5, 2))) * 65536
+								+ cdbl(val('&' + substr($memory_block, $stepping - 7, 2))) * 256
+								+ cdbl(val('&' + substr($memory_block, $stepping - 9, 2)))
+			else
+				$bytes = $bytes + cdbl(val('&' + substr($memory_block, $stepping - 1, 2))) * 16777216
+								+ cdbl(val('&' + substr($memory_block, $stepping - 3, 2))) * 65536
+								+ cdbl(val('&' + substr($memory_block, $stepping - 5, 2))) * 256
+								+ cdbl(val('&' + substr($memory_block, $stepping - 7, 2)))
+			endif
+		next
+		; Convert to GB and round to likely values.
+		dim $high_numbers, $low_number
+		$ram_size_gb = ($bytes / 1073741824 * 10)
+		$ram_size_gb = cstr(round($ram_size_gb))
+		$low_number = val(right($ram_size_gb, 1))
+		$high_numbers = val(left($ram_size_gb, len($ram_size_gb) - 1))
+		select
+			case virtual_machine()
+				; Skip rounding on virtual machines as they can be configured with arbitrary values.
+			case $low_number = 7 or $low_number = 8 or $low_number = 9
+				$high_numbers = $high_numbers + 1
+				$low_number = 0
+			case $low_number = 3 or $low_number = 4
+				$low_number = 5
+			case $low_number = 1
+				$low_number = 0
+		endselect
+		$ram_size_gb = cstr($high_numbers) + "." + cstr($low_number)
+	endif
+endfunction

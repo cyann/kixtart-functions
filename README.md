@@ -132,6 +132,7 @@ These functions should help gathering data about software, hardware, user, and n
 - **`device_type()`** _Return the computer type._
 - **`drive_free_gb()`** _Return the free space available on the system drive in GB._
 - **`drive_size_gb()`** _Return the system drive size in GB._
+- **`ram_size_gb()`** _Return the RAM size rounded in GB (e.g. 3.75 -> 4.0)._
 
 
 ## Software information
