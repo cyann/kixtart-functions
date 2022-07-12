@@ -1,6 +1,7 @@
 {
 	"files.eol": "\r\n",
 	"cSpell.words": [
+		"ACPI",
 		"ADODB",
 		"cdbl",
 		"cimv",
@@ -10,11 +11,14 @@
 		"dsget",
 		"dsquery",
 		"enumkey",
+		"enumvalue",
 		"HKLM",
 		"isdeclared",
 		"kixtart",
 		"lcase",
 		"ldomain",
+		"Localspl",
+		"lserver",
 		"msecs",
 		"Msxml",
 		"nomacrosinstrings",
