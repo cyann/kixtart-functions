@@ -63,6 +63,9 @@ Remove a flag from a semicolon separated string of flags.
 
 # Array functions
 
+## clean_up_array($array)
+Clean up an array from commas and extra spaces.
+
 ---
 
 # Date and time functions

@@ -1,0 +1,17 @@
+; Clean up an array from commas and extra spaces.
+function clean_up_array($array)
+	dim $index
+	redim $clean_up_array[ubound($array)]
+	for $index = 0 to ubound($array)
+		; Trim any space character.
+		$clean_up_array[$index] = trim($array[$index])
+		; Replace commas by spaces.
+		if instr($clean_up_array[$index], ",")
+			$clean_up_array[$index] = join(split($clean_up_array[$index], ","), " ")
+		endif
+		; Remove double spaces.
+		if instr($clean_up_array[$index], "  ")
+			$clean_up_array[$index] = join(split($clean_up_array[$index], "  "), " ")
+		endif
+	next
+endfunction
