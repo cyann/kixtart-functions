@@ -133,6 +133,7 @@ These functions should help gathering data about software, hardware, user, and n
 - **`drive_free_gb()`** _Return the free space available on the system drive in GB._
 - **`drive_size_gb()`** _Return the system drive size in GB._
 - **`ram_size_gb()`** _Return the RAM size rounded in GB (e.g. 3.75 -> 4.0)._
+- **`serial_number()`** _Return the computer serial number._
 
 
 ## Software information

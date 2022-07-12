@@ -1,0 +1,22 @@
+; Return the computer serial number.
+function serial_number()
+	dim $wmi_object, $wmi_bios, $item, $nul
+	$wmi_object = getobject("winmgmts:{impersonationlevel=impersonate}!\\" + @wksta)
+	if not @error
+		$wmi_bios = $wmi_object.execquery("select * from Win32_Bios", , 48)
+		if not @error
+			for each $item in $wmi_bios
+				$serial_number = trim($item.serialnumber)
+			next
+			select
+				case $serial_number = "---" or instr($serial_number, "To Be Fill")
+					$serial_number = ""
+				case instr($serial_number, "VMware") or instr($serial_number, "Parallels")
+					$serial_number = substr($serial_number, instr($serial_number, "-"))
+					$serial_number = join(split(join(split($serial_number, "-"), ""), " "), "")
+				case instr($serial_number, ",")
+					$serial_number = join(split($serial_number, ","), "")
+			endselect
+		endif
+	endif
+endfunction
