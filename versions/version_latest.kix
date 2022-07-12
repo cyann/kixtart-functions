@@ -1,0 +1,19 @@
+; Return the latest version from a list (test:2.0.0.0;prod:1.0.0.0;beta:3.2.1.4;1.0.1.2 -> 3.2.1.4).
+function version_latest($version_list)
+	dim $version_array[], $index, $indexed_version
+	$version_array = split($version_list, ";")
+	for $index = 0 to ubound($version_array)
+		if instr($version_array[$index], ":")
+			$indexed_version = split($version_array[$index], ":")[1]
+		else
+			$indexed_version = $version_array[$index]
+		endif
+		if $version_latest
+			if compare_version($version_latest, $indexed_version)
+				$version_latest = $indexed_version
+			endif
+		else
+			$version_latest = $indexed_version
+		endif
+	next
+endfunction
