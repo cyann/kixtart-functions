@@ -152,6 +152,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## User information
 - **`remote_session()`** _Return 1 if running in Terminal Services/RDP._
+- **`user_browser_path()`** _Path to the user's default browser._
 - **`user_language()`** _User selected language._
 - **`user_proxy_mode()`** _Configuration mode of the user proxy._
 - **`user_screensaver_timeout()`** _Screen saver timeout in minutes._

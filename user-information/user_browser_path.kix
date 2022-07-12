@@ -1,0 +1,24 @@
+; Return the path to the user's default browser.
+function user_browser_path()
+	dim $browser_name, $browser_version, $prog_id
+	; Default browser path.
+	if val(readvalue("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentVersion")) >= 6
+		$prog_id = readvalue("HKCU\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", "Progid")
+		$user_browser_path = readvalue("HKCR\" + $prog_id + "\shell\open\command", "")
+	endif
+	if not $user_browser_path
+		$user_browser_path = readvalue("HKCU\Software\Classes\http\shell\open\command", "")
+	endif
+	if not $user_browser_path
+		$user_browser_path = readvalue("HKCR\http\shell\open\command", "")
+	endif
+	; Cleanup the path.
+	$user_browser_path = substr($user_browser_path, 1, instr($user_browser_path, ".exe") + 3)
+	if instr($user_browser_path, chr(34)) = 1
+		$user_browser_path = substr($user_browser_path, 2, )
+	endif
+	; Fix for Citrix.
+	if instr($user_browser_path, "citrix")
+		$user_browser_path = readvalue("HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\IEXPLORE.EXE", "")
+	endif
+endfunction
