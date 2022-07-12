@@ -1,0 +1,29 @@
+; Return the name of the domain controller.
+function domain_controller()
+	; Detect if we are a DC and return the computer name.
+	if readvalue("HKLM\System\CurrentControlSet\Control\ProductOptions", "ProductType") = "LanmanNT"
+		$domain_controller = @wksta
+		exit
+	endif
+	; First try with KiXtart.
+	$domain_controller = substr(@lserver, 3)
+	; Then try with LDAP.
+	if not $domain_controller or $domain_controller = @wksta
+		dim $ldap_object
+		$ldap_object = getobject("LDAP://rootDSE")
+		if not @error
+			$domain_controller = $ldap_object.get("dnsHostName")
+			if instr($domain_controller, ".")
+				$domain_controller = substr($domain_controller, 1, instr($domain_controller, ".") - 1)
+			endif
+		endif
+	endif
+	; Finally try with the environment variable.
+	if not $domain_controller or $domain_controller = @wksta
+		$domain_controller = substr(expandenvironmentvars("%LOGONSERVER%"), 3)
+	endif
+	; Return nothing if no method works.
+	if $domain_controller = @wksta
+		$domain_controller = ""
+	endif
+endfunction
