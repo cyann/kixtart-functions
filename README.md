@@ -37,14 +37,20 @@ Convert and round a double-precision floating-point value (cdbl) to a string wit
 ## dn_to_ou($dn)
 Shorten an LDAP DN (Distinguished Name) to an OU name.
 
-## sort_list($list, optional $separator)
-Return a sorted list of words separated by semicolon (;).
-
 ## to_ascii7($string, optional $replacement_char)
 Normalize a string to 7-bit ASCII.
 
 ## url_encode($string)
 Convert a string to be RFC 1738 compliant.
+
+---
+
+## Flag functions
+Functions that deal with strings containing zero or more semicolon-separated flags. For example `flag1;flag2;flag3`.
+
+
+## sort_list($list, optional $separator)
+Return a sorted list of words separated by semicolon (;).
 
 ---
 
