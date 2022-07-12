@@ -107,6 +107,9 @@ Functions that deal with strings containing zero or more semicolon-separated fla
 
 # Version functions
 - **`compare_version`**($initial_version, $compared_version) _Compare 2 version numbers (x.x.x.x)._
+- **`version_oldest`**($version_list, $compared_version) _Return the oldest version from a list._
+
+
 # Networking functions
 Functions to send data to web services, and deal with ip addresses.
 
