@@ -52,6 +52,10 @@ Functions that deal with strings containing zero or more semicolon-separated fla
 ## sort_list($list, optional $separator)
 Return a sorted list of words separated by semicolon (;).
 
+## add_flag($string, $flag)
+ Add a flag to a semicolon separated string of flags.
+function
+
 ---
 
 # Date and time functions

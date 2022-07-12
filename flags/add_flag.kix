@@ -1,0 +1,19 @@
+
+; Add a flag to a semicolon separated string of flags.
+function add_flag($string, $flag)
+	select
+		case $flag = ""
+			; Empty flag, do nothing.
+			$add_flag = $string
+			exit
+		case instr($string, $flag)
+			; Flag is already present in string.
+			$add_flag = $string
+			exit
+		case $string <> ""
+			; String is not empty, add a semicolon.
+			$string = $string + ";"
+	endselect
+	; Add the flag to the string.
+	$add_flag = $string + $flag
+endfunction
