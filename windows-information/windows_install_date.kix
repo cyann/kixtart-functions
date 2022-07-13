@@ -1,0 +1,4 @@
+; Return the date of the Windows installation.
+function windows_install_date()
+	$windows_install_date = split(unix_to_date_time(read_value_64("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "InstallDate")))[0]
+endfunction
