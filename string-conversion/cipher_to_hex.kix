@@ -1,0 +1,92 @@
+; Convert a cipher suites to its hex code.
+function cipher_to_hex($cipher)
+	dim $hex
+	select
+		; SSL 3.0, TLS 1.0, TLS 1.1 and TLS 1.2
+		case $cipher = "TLS_RSA_WITH_NULL_MD5" $hex = "0001"
+		case $cipher = "TLS_RSA_WITH_NULL_SHA" $hex = "0002"
+		case $cipher = "TLS_RSA_WITH_RC4_128_MD5" $hex = "0004"
+		case $cipher = "TLS_RSA_WITH_RC4_128_SHA" $hex = "0005"
+		case $cipher = "TLS_RSA_WITH_DES_CBC_SHA" $hex = "0009"
+		case $cipher = "TLS_RSA_WITH_3DES_EDE_CBC_SHA" $hex = "000A"
+		case $cipher = "TLS_DHE_DSS_WITH_DES_CBC_SHA" $hex = "0012"
+		case $cipher = "TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA" $hex = "0013"
+		case $cipher = "TLS_RSA_WITH_AES_128_CBC_SHA" $hex = "002F"
+		case $cipher = "TLS_DHE_DSS_WITH_AES_128_CBC_SHA" $hex = "0032"
+		case $cipher = "TLS_DHE_RSA_WITH_AES_128_CBC_SHA" $hex = "0033"
+		case $cipher = "TLS_RSA_WITH_AES_256_CBC_SHA" $hex = "0035"
+		case $cipher = "TLS_DHE_DSS_WITH_AES_256_CBC_SHA" $hex = "0038"
+		case $cipher = "TLS_DHE_RSA_WITH_AES_256_CBC_SHA" $hex = "0039"
+		case $cipher = "TLS_RSA_WITH_NULL_SHA256" $hex = "003B"
+		case $cipher = "TLS_RSA_WITH_AES_128_CBC_SHA256" $hex = "003C"
+		case $cipher = "TLS_RSA_WITH_AES_256_CBC_SHA256" $hex = "003D"
+		case $cipher = "TLS_DHE_DSS_WITH_AES_128_CBC_SHA256" $hex = "0040"
+		case $cipher = "TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA" $hex = "0062"
+		case $cipher = "TLS_DHE_DSS_EXPORT1024_WITH_DES_CBC_SHA" $hex = "0063"
+		case $cipher = "TLS_RSA_EXPORT1024_WITH_RC4_56_SHA" $hex = "0064"
+		case $cipher = "TLS_DHE_DSS_WITH_AES_256_CBC_SHA256" $hex = "006A"
+		case $cipher = "TLS_RSA_WITH_AES_128_GCM_SHA256" $hex = "009C"
+		case $cipher = "TLS_RSA_WITH_AES_256_GCM_SHA384" $hex = "009D"
+		case $cipher = "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256" $hex = "009E"
+		case $cipher = "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384" $hex = "009F"
+		case $cipher = "TLS_PSK_WITH_AES_128_GCM_SHA256" $hex = "00A8"
+		case $cipher = "TLS_PSK_WITH_AES_256_GCM_SHA384" $hex = "00A9"
+		case $cipher = "TLS_PSK_WITH_AES_128_CBC_SHA256" $hex = "00AE"
+		case $cipher = "TLS_PSK_WITH_AES_256_CBC_SHA384" $hex = "00AF"
+		case $cipher = "TLS_PSK_WITH_NULL_SHA256" $hex = "00B0"
+		case $cipher = "TLS_PSK_WITH_NULL_SHA384" $hex = "00B1"
+		; TLS 1.3
+		case $cipher = "TLS_AES_128_GCM_SHA256" $hex = "1301"
+		case $cipher = "TLS_AES_256_GCM_SHA384" $hex = "1302"
+		case $cipher = "TLS_CHACHA20_POLY1305_SHA256" $hex = "1303"
+		case $cipher = "TLS_AES_128_CCM_SHA256" $hex = "1304"
+		case $cipher = "TLS_AES_128_CCM_8_SHA256" $hex = "1304"
+		; TLS 1.2 ECDHE, with curves for legacy Windows.
+		case $cipher = "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA" $hex = "C009"
+		case instr($cipher, "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P") $hex = "C009"
+		case $cipher = "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA" $hex = "C00A"
+		case instr($cipher, "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P") $hex = "C00A"
+		case $cipher = "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA" $hex = "C013"
+		case instr($cipher, "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA_P") $hex = "C013"
+		case $cipher = "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA" $hex = "C014"
+		case instr($cipher, "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA_P") $hex = "C014"
+		case $cipher = "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256" $hex = "C023"
+		case instr($cipher, "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P") $hex = "C023"
+		case $cipher = "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384" $hex = "C024"
+		case instr($cipher, "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384_P") $hex = "C024"
+		case $cipher = "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256" $hex = "C027"
+		case instr($cipher, "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P") $hex = "C027"
+		case $cipher = "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384" $hex = "C028"
+		case instr($cipher, "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P") $hex = "C028"
+		case $cipher = "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256" $hex = "C02B"
+		case instr($cipher, "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P") $hex = "C02B"
+		case $cipher = "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384" $hex = "C02C"
+		case instr($cipher, "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384_P") $hex = "C02C"
+		case $cipher = "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256" $hex = "C02F"
+		case instr($cipher, "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256_P") $hex = "C02F"
+		case $cipher = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384" $hex = "C030"
+		case instr($cipher, "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384_P") $hex = "C030"
+		; SSL 2.0 for legacy Windows.
+		case $cipher = "SSL_CK_RC4_128_WITH_MD5" $hex = "01:SSL"
+		case $cipher = "SSL_CK_RC4_128_EXPORT40_WITH_MD5" $hex = "02:SSL"
+		case $cipher = "SSL_CK_DES_64_CBC_WITH_MD5" $hex = "06:SSL"
+		case $cipher = "SSL_CK_DES_192_EDE3_CBC_WITH_MD5" $hex = "07:SSL"
+	endselect
+	if $hex
+		$cipher_to_hex = $hex
+		 ; Curves on legacy version of Windows (before 10/2016).
+		select
+			case instr($cipher, "_P256")
+				$hex = $hex + ":P256"
+			case instr($cipher, "_P384")
+				$hex = $hex + ":P384"
+			case instr($cipher, "_P521")
+				$hex = $hex + ":P521"
+		endselect
+	else
+		if instr($cipher, "_")
+			$cipher = join(split($cipher, "_"), " ")
+		endif
+		$cipher_to_hex = acronym($cipher)
+	endif
+endfunction

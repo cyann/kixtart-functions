@@ -55,6 +55,7 @@ These functions are required by other functions.
 - **`base64_encode(`**`$string`**`)`** _Return the Base64 conversion of the provided string (fast)._
 - **`browser_name(`**`$browser_path`**`)`** _Return the product name of the browser based on it's path._
 - **`cdbl_to_string(`**`$cdbl, [$decimals]`**`)`** _Convert and round a double-precision floating-point value (cdbl) to a string with a dot (.) as numerical separator._
+- **`cipher_to_hex(`**`$cipher`**`)`** _Convert a cipher suites to its hex code._
 - **`dn_to_ou(`**`$dn`**`)`** _Shorten an LDAP DN (Distinguished Name) to an OU name._
 - **`to_ascii7(`**`$string, [$replacement_char]`**`)`** _Normalize a string to 7-bit ASCII._
 - **`trim_dc(`**`$dc`**`)`** _Shorten an Active Directory DC (Domain Component)._
