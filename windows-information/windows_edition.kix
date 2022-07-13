@@ -1,0 +1,60 @@
+; Return the abbreviated Windows edition ID.
+function windows_edition()
+	; [Bus|Edu|Ent|Pro|Ess|Std|Ult|WSD|WSF|WSS|WSW]
+	; https://www.itsecdb.com/oval/objectdetails/oval/org.mitre.oval/obj/24057/windows-registry_object-This-registry-key-identifies-the-Windows-EditionID/
+	; Note: WUDSS - Windows Unified Data Storage Server - (2003 only) is not reported.
+	$windows_edition = read_value_64("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "EditionID")
+	select
+		; Bus - Business.
+		case instr($windows_edition, "Business")
+			; Business, Vista only.
+			$windows_edition = "Bus"
+		; Edu - Education.
+		case instr($windows_edition, "Education")
+			; Education, Windows 10.
+			$windows_edition = "Edu"
+		; Ent - Enterprise.
+		case instr($windows_edition, "Enterprise")
+			; ServerEnterprise, 2008 and 2008R2.
+			; Enterprise, 7, 8, 8.1, 10.
+			$windows_edition = "Ent"
+		; Ess - Essentials.
+		case instr($windows_edition, "Solution") or instr($windows_edition, "Essentials")
+			; ServerSolution, 2012 and 2012R2.
+			; ServerEssentials, 2016.
+			$windows_edition = "Ess"
+		; Pro - Professional.
+		case instr($windows_edition, "Professional")
+			; Professional, 7, 8, 8.1 and 10.
+			$windows_edition = "Pro"
+		; Std - Core, Home and Standard.
+		case instr($windows_edition, "Core") or instr($windows_edition, "Home") or instr($windows_edition, "ServerStandard")
+			; Core, 10.
+			; Home, 8 and 8.1.
+			; ServerStandard, 2008, 2008R2, 2012 and 2012R2.
+			$windows_edition = "Std"
+		; Ult - Ultimate.
+		case instr($windows_edition, "Ultimate")
+			; Ultimate, Vista and 7.
+			$windows_edition = "Ult"
+		; WSD - Datacenter.
+		case instr($windows_edition, "Datacenter")
+			; ServerDatacenter, 2008, 2008R2, 2012 and 2012R2.
+			$windows_edition = "WSD"
+		; WSF - Foundation.
+		case instr($windows_edition, "ServerWinFoundation")
+			; ServerWinFoundation, 2012 and 2012R2.
+			$windows_edition = "WSF"
+		; WSS - Storage Server Standard.
+		case instr($windows_edition, "ServerStorageStandard")
+			; ServerStorageStandard, 2012 and 2012R2.
+			$windows_edition = "WSS"
+		; WSW - Storage Server Workgroup.
+		case instr($windows_edition, "ServerStorageWorkgroup")
+			; ServerStorageWorkgroup, 2012 and 2012R2.
+			$windows_edition = "WSW"
+		; Unkown, return an acronym.
+		case 1
+			$windows_edition = acronym($edition_id)
+	endselect
+endfunction
