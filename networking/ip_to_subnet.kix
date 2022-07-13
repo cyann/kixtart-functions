@@ -1,0 +1,18 @@
+; Return the subnet based on IP and mask.
+function ip_to_subnet($ip_address, $subnet_mask)
+	; 10.60.6.237, 255.255.252.0 -> 10.60.4.0/22
+	dim $ip_address_array[], $subnet_mask_array[]
+	; Convert to arrays.
+	$ip_address_array = split($ip_address, ".")
+	$subnet_mask_array = split($subnet_mask, ".")
+	; Return if the format is invalid.
+	if ubound($ip_address_array) <> 3 or ubound($subnet_mask_array) <> 3
+		exit
+	endif
+	; Add each byte after an AND operation with the subnet byte, and add the subnet prefix.
+	$ip_to_subnet = "" + (cint($ip_address_array[0]) & cint($subnet_mask_array[0]))
+		+ "." + (cint($ip_address_array[1]) & cint($subnet_mask_array[1]))
+		+ "." + (cint($ip_address_array[2]) & cint($subnet_mask_array[2]))
+		+ "." + (cint($ip_address_array[3]) & cint($subnet_mask_array[3]))
+		+ "/" + subnet_mask_to_prefix($subnet_mask)
+endfunction
