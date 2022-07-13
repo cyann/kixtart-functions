@@ -114,7 +114,7 @@ Functions that deal with strings containing zero or more semicolon-separated fla
 
 ## Networking functions
 Functions to send data to web services, and deal with ip addresses.
-- **`ip_info(`**`$type`**`)`** _Return information about the active network adapter._
+
 - **`ip_to_subnet(`**`$ip_address, $subnet_mask`**`)`** _Return the subnet of an IP and it's subnet mask._
 - **`post_data(`**`$url, $data`**`)`** _Post data to a web service._
 - **`subnet_mask_to_prefix(`**`$subnet_mask`**`)`** _Return the prefix (`/x` value) of a subnet mask._
