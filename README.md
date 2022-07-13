@@ -164,6 +164,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## Active Directory information
 - **`domain_controller()`** _Name of the domain controller._
+- **`enum_group_members(`**`$computer_or_domain, $group, [$filter]`**`)`** _Array of a computer or domain group's members._
 - **`is_admin()`** _Return 1 if running as admin or system._
 - **`site_name()`** _Active Directory site name._
 - **`user_domain()`** _Active Directory user domain._
