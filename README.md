@@ -50,26 +50,26 @@ endfunction
 These functions are required by other functions.
 
 ## String conversion functions
-- **`acronym`**`($string)` _Return the acronym of a string._
-- **`base64_encode_native`**`($string)` _Convert a string to its Base64 equivalent (slow)._
-- **`base64_encode`**`($string)` _Return the Base64 conversion of the provided string (fast)._
-- **`browser_name`**`($browser_path)` _Return the product name of the browser based on it's path._
-- **`cdbl_to_string`**`($cdbl, [$decimals])` _Convert and round a double-precision floating-point value (cdbl) to a string with a dot (.) as numerical separator._
-- **`dn_to_ou`**`($dn)` _Shorten an LDAP DN (Distinguished Name) to an OU name._
-- **`to_ascii7`**`($string, [$replacement_char])` _Normalize a string to 7-bit ASCII._
-- **`trim_dc`**`($dc)` _Shorten an Active Directory DC (Domain Component)._
-- **`url_encode`**`($string)` _Convert a string to be RFC 1738 compliant._
+- **`acronym(`**`$string`**`)`** _Return the acronym of a string._
+- **`base64_encode_native(`**`$string`**`)`** _Convert a string to its Base64 equivalent (slow)._
+- **`base64_encode(`**`$string`**`)`** _Return the Base64 conversion of the provided string (fast)._
+- **`browser_name(`**`$browser_path`**`)`** _Return the product name of the browser based on it's path._
+- **`cdbl_to_string(`**`$cdbl, [$decimals]`**`)`** _Convert and round a double-precision floating-point value (cdbl) to a string with a dot (.) as numerical separator._
+- **`dn_to_ou(`**`$dn`**`)`** _Shorten an LDAP DN (Distinguished Name) to an OU name._
+- **`to_ascii7(`**`$string, [$replacement_char]`**`)`** _Normalize a string to 7-bit ASCII._
+- **`trim_dc(`**`$dc`**`)`** _Shorten an Active Directory DC (Domain Component)._
+- **`url_encode(`**`$string`**`)`** _Convert a string to be RFC 1738 compliant._
 
 
 ## Flag functions
 Functions that deal with strings containing zero or more semicolon-separated flags. For example `flag1;flag2;flag3`.
-- **`sort_list`**`($list, [$separator])` _Return a sorted list of words separated by semicolon (;)._
-- **`add_flag`**`($string, $flag)` _Add a flag to a semicolon separated string of flags._
-- **`delete_flag`**`($string, $flag)` _Remove a flag from a semicolon separated string of flags._
+- **`sort_list(`**`$list, [$separator]`**`)`** _Return a sorted list of words separated by semicolon (;)._
+- **`add_flag(`**`$string, $flag`**`)`** _Add a flag to a semicolon separated string of flags._
+- **`delete_flag(`**`$string, $flag`**`)`** _Remove a flag from a semicolon separated string of flags._
 
 
 ## Array functions
-- **`clean_up_array`**`($array)` _Clean up an array from commas and extra spaces._
+- **`clean_up_array(`**`$array`**`)`** _Clean up an array from commas and extra spaces._
 
 
 ## Date and time functions
@@ -78,44 +78,44 @@ Functions that deal with strings containing zero or more semicolon-separated fla
 > `yyyy-mm-dd hh:mm:ss`
 >
 > Attention: Most of these are not taking timezones, leap seconds and other time-related quirks into account.
-- **`date_time_to_unix`**`($date_time)` _Return a UNIX timestamp from a date_time string._
-- **`date_time`**`()` _Return the current date and time._
-- **`date`**`([$yyyy_mm_dd])` _Return the date only._
-- **`exp`**`($number, $exponent)` _Return a number raised to the power of exponent._
-- **`hex_to_date_time`**`($hex_string)` _Convert a reversed int8 hexadecimal string to a date time string._
-- **`hex_to_dec`**`($hex)` _Convert an hexadecimal string to decimal._
-- **`int8_to_date_time`**`($hex_string)` _Convert an int8 hex string or date object to a date time string._
-- **`serial_date`**`($serial)` _Return the number of days since day 1 of the specified date or vice-versa._
-- **`unix_to_date_time`**`($unix_time)` _Return a date from a UNIX timestamp._
-- **`wmi_utc_to_date_time`**`($wmi_utc)` _Return the adjusted WMI UTC date time to the local time._
+- **`date_time_to_unix(`**`$date_time`**`)`** _Return a UNIX timestamp from a date_time string._
+- **`date_time()`** _Return the current date and time._
+- **`date(`**`[$yyyy_mm_dd]`**`)`** _Return the date only._
+- **`exp(`**`$number, $exponent`**`)`** _Return a number raised to the power of exponent._
+- **`hex_to_date_time(`**`$hex_string`**`)`** _Convert a reversed int8 hexadecimal string to a date time string._
+- **`hex_to_dec(`**`$hex`**`)`** _Convert an hexadecimal string to decimal._
+- **`int8_to_date_time(`**`$hex_string`**`)`** _Convert an int8 hex string or date object to a date time string._
+- **`serial_date(`**`$serial`**`)`** _Return the number of days since day 1 of the specified date or vice-versa._
+- **`unix_to_date_time(`**`$unix_time`**`)`** _Return a date from a UNIX timestamp._
+- **`wmi_utc_to_date_time(`**`$wmi_utc`**`)`** _Return the adjusted WMI UTC date time to the local time._
 
 
 ## File functions
-- **`get_file_sha256`**`($file_name)` _Return the SHA-256 hash of the specified file._
-- **`get_file_version_64`**`($file, [$field])` _Return the file version details on x64-redirected file._
-- **`get_temp_file`**`()` _Return a random temp file name._
-- **`get_version_int`**`($exe_path)` _Return an integer from a x.yy version, e.g. `4.67` -> `467`._
-- **`is_file_identical`**`($file1, $file2)` _Return 1 if 2 files are identical._
-- **`wkix_exe_path`**`()` _Install, update, and return the path to the local `wkix.exe`._
+- **`get_file_sha256(`**`$file_name`**`)`** _Return the SHA-256 hash of the specified file._
+- **`get_file_version_64(`**`$file, [$field]`**`)`** _Return the file version details on x64-redirected file._
+- **`get_temp_file()`** _Return a random temp file name._
+- **`get_version_int(`**`$exe_path`**`)`** _Return an integer from a x.yy version, e.g. `4.67` -> `467`._
+- **`is_file_identical(`**`$file1, $file2`**`)`** _Return 1 if 2 files are identical._
+- **`wkix_exe_path()`** _Install, update, and return the path to the local `wkix.exe`._
 
 
 ## Registry functions
-- **`enum_key_64`**`($key, $index)` _Enumerate the native value of a registry key on x64._
-- **`read_value_64`**`($key, $name)` _Read the 64-bit value of a registry key._
-- **`reg_export`**`($reg_key, $reg_file)` _Export a registry key to a Regedit 5 format file (UCS-2 LE BOM)._
+- **`enum_key_64(`**`$key, $index`**`)`** _Enumerate the native value of a registry key on x64._
+- **`read_value_64(`**`$key, $name`**`)`** _Read the 64-bit value of a registry key._
+- **`reg_export(`**`$reg_key, $reg_file`**`)`** _Export a registry key to a Regedit 5 format file (UCS-2 LE BOM)._
 
 
 ## Version functions
-- **`compare_version`**`($initial_version, $compared_version)` _Compare 2 version numbers (x.x.x.x)._
-- **`version_latest`**`($version_list)` _Return the latest version from a list._
-- **`version_oldest`**`($version_list)` _Return the oldest version from a list._
+- **`compare_version(`**`$initial_version, $compared_version`**`)`** _Compare 2 version numbers (x.x.x.x)._
+- **`version_latest(`**`$version_list`**`)`** _Return the latest version from a list._
+- **`version_oldest(`**`$version_list`**`)`** _Return the oldest version from a list._
 
 
 ## Networking functions
 Functions to send data to web services, and deal with ip addresses.
 
-- **`post_data`**`($url, $data)` _Post data to a web service._
-- **`subnet_mask_to_prefix`**`($subnet_mask)` _Return the prefix (`/x` value) of a subnet mask._
+- **`post_data(`**`$url, $data`**`)`** _Post data to a web service._
+- **`subnet_mask_to_prefix(`**`$subnet_mask`**`)`** _Return the prefix (`/x` value) of a subnet mask._
 
 
 ---
@@ -125,53 +125,53 @@ Functions to send data to web services, and deal with ip addresses.
 These functions should help gathering data about software, hardware, user, and networking configurations.
 
 ## Computer information
-- **`computer_name`**`()` _Computer name._
-- **`cpu_count`**`()` _Number of logical CPUs._
-- **`cpu_speed_ghz`**`()` _CPU speed, in GHz._
-- **`device_type`**`()` _Computer type [Desktop\Laptop|Server]._
-- **`drive_free_gb`**`()` _Available free space on the system drive, in GB._
-- **`drive_size_gb`**`()` _System drive size, in GB._
-- **`ram_size_gb`**`()` _RAM size, rounded in GB (e.g. `3.75` -> `4.0`)._
-- **`serial_number`**`()` _Serial number._
-- **`shared_folder_list`**`()` _List of shared folders with their permissions._
+- **`computer_name()`** _Computer name._
+- **`cpu_count()`** _Number of logical CPUs._
+- **`cpu_speed_ghz()`** _CPU speed, in GHz._
+- **`device_type()`** _Computer type [Desktop\Laptop|Server]._
+- **`drive_free_gb()`** _Available free space on the system drive, in GB._
+- **`drive_size_gb()`** _System drive size, in GB._
+- **`ram_size_gb()`** _RAM size, rounded in GB (e.g. `3.75` -> `4.0`)._
+- **`serial_number()`** _Serial number._
+- **`shared_folder_list()`** _List of shared folders with their permissions._
 
 
 ## Windows information
-- **`is_legacy_windows`**`()` _Return 1 if running on a legacy version of Windows._
-- **`windows_architecture`**`()` _Architecture supported by Windows [x86|x64]._
-- **`windows_language`**`()` _Windows system language._
-- **`windows_product_suite`**`()` _Windows Product Suite number._
-- **`windows_service_pack`**`()` _Windows service pack number._
-- **`windows_version`**`()` _Version of Windows, including Embedded (e) and Server Core (c), for example `2012R2c`._
+- **`is_legacy_windows()`** _Return 1 if running on a legacy version of Windows._
+- **`windows_architecture()`** _Architecture supported by Windows [x86|x64]._
+- **`windows_language()`** _Windows system language._
+- **`windows_product_suite()`** _Windows Product Suite number._
+- **`windows_service_pack()`** _Windows service pack number._
+- **`windows_version()`** _Version of Windows, including Embedded (e) and Server Core (c), for example `2012R2c`._
 
 ## Software information
-- **`av_product`**`()` _Anti-virus product name (acronym like SEP)._
-- **`av_scan_date`**`()` _Anti-virus last scan date (yyyy-mm-dd)._
-- **`dotnet_version_list`**`()` _List of Microsoft .NET Framework versions._
-- **`ie_version`**`()` _Internet Explorer version._
-- **`office_version_list`**`()` _List of Microsoft Office versions._
+- **`av_product()`** _Anti-virus product name (acronym like SEP)._
+- **`av_scan_date()`** _Anti-virus last scan date (yyyy-mm-dd)._
+- **`dotnet_version_list()`** _List of Microsoft .NET Framework versions._
+- **`ie_version()`** _Internet Explorer version._
+- **`office_version_list()`** _List of Microsoft Office versions._
 
 
 ## User information
-- **`remote_session`**`()` _Return 1 if running in Terminal Services/RDP._
-- **`user_browser_path`**`()` _Path to the user's default browser._
-- **`user_language`**`()` _User selected language._
-- **`user_proxy_mode`**`()` _Configuration mode of the user proxy._
-- **`user_screensaver_timeout`**`()` _Screen saver timeout in minutes._
-- **`user_screensaver`**`()` _User selected screen saver._
+- **`remote_session()`** _Return 1 if running in Terminal Services/RDP._
+- **`user_browser_path()`** _Path to the user's default browser._
+- **`user_language()`** _User selected language._
+- **`user_proxy_mode()`** _Configuration mode of the user proxy._
+- **`user_screensaver_timeout()`** _Screen saver timeout in minutes._
+- **`user_screensaver()`** _User selected screen saver._
 
 
 ## Active Directory information
-- **`domain_controller`**`()` _Name of the domain controller._
-- **`is_admin`**`()` _Return 1 if running as admin or system._
-- **`site_name`**`()` _Active Directory site name._
-- **`user_domain`**`()` _Active Directory user domain._
-- **`user_id`**`()` _Active Directory user ID._
-- **`user_name`**`()` _Full name of the user._
-- **`user_privileges`**`()` _Effective user's privileges based on AD group membership._
+- **`domain_controller()`** _Name of the domain controller._
+- **`is_admin()`** _Return 1 if running as admin or system._
+- **`site_name()`** _Active Directory site name._
+- **`user_domain()`** _Active Directory user domain._
+- **`user_id()`** _Active Directory user ID._
+- **`user_name()`** _Full name of the user._
+- **`user_privileges()`** _Effective user's privileges based on AD group membership._
 
 ## Misc. information
-- **`invocation_type`**`()` _Script invocation type._
+- **`invocation_type()`** _Script invocation type._
 
 
 ---
