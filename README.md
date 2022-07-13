@@ -63,9 +63,9 @@ These functions are required by other functions.
 
 ## Flag functions
 Functions that deal with strings containing zero or more semicolon-separated flags. For example `flag1;flag2;flag3`.
-- **`sort_list(`**`$list, [$separator]`**`)`** _Return a sorted list of words separated by semicolon (;)._
 - **`add_flag(`**`$string, $flag`**`)`** _Add a flag to a semicolon separated string of flags._
 - **`delete_flag(`**`$string, $flag`**`)`** _Remove a flag from a semicolon separated string of flags._
+- **`sort_list(`**`$list, [$separator]`**`)`** _Return a sorted list of words separated by semicolon (;)._
 
 
 ## Array functions
