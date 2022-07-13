@@ -1,0 +1,104 @@
+; Return information about the active network adapter.
+function ip_info($type)
+	; $type = [ip_address|mac_address|subnet_mask|default_gateway|mac_address_list]
+	if not isdeclared($_ip_info_ip_address)
+		global $_ip_info_ip_address, $_ip_info_mac_address, $_ip_info_subnet_mask, $_ip_info_default_gateway, $_ip_info_dhcp_server, $_ip_info_mac_address_list
+	endif
+	if not $_ip_info_ip_address
+		dim $wmi_object, $wmi_query, $query_result, $max_metric, $nul
+		$max_metric = 9999
+		$wmi_object = getobject("winmgmts:{impersonationlevel=impersonate}!\\" + @wksta + "\root\cimv2")
+		if not @error
+			$wmi_query = $wmi_object.execquery("select DefaultIPGateway,DHCPEnabled,DHCPServer,IPAddress,IPConnectionMetric,IPSubnet,MacAddress from Win32_NetworkAdapterConfiguration where MacAddress is not null and ServiceName != 'NdisWan'", , 48)
+			if not @error
+				for each $query_result in $wmi_query
+					dim $metric, $default_gateway, $dhcp_enabled, $dhcp_server, $ip_address, $subnet_mask, $mac_address, $sub_query
+					; default_gateway.
+					for each $sub_query in $query_result.DefaultIPGateway
+						if instr($sub_query, ".") and not $default_gateway
+							$default_gateway = $sub_query
+						endif
+					next
+					; ip_address.
+					for each $sub_query in $query_result.IPAddress
+						if instr($sub_query, ".") and not $ip_address
+							$ip_address = $sub_query
+						endif
+					next
+					; subnet_mask.
+					for each $sub_query in $query_result.IPSubnet
+						if instr($sub_query, ".") and not $subnet_mask
+							$subnet_mask = $sub_query
+						endif
+					next
+					; dhcp_server.
+					$dhcp_enabled = $query_result.DHCPEnabled
+					if not $dhcp_enabled
+						$dhcp_server = "Static"
+					else
+						$dhcp_server = $query_result.DHCPServer
+					endif
+					; mac_address and mac_address_list.
+					$mac_address = $query_result.MacAddress
+					; Remove the colons.
+					if instr($mac_address, ":")
+						$mac_address = join(split($mac_address, ":"), "")
+					endif
+					; Remove well-known MAC addresses.
+					select
+						case instr($mac_address, "0003FF") = 1
+							; Microsoft Virtual PC
+						case $mac_address = "00059A3C7A00"
+							; Cisco VPN adapter
+							if not $dhcp_enabled
+								$dhcp_server = "VPN"
+							endif
+						case instr($mac_address, "00155D") = 1
+							; Microsoft Hyper-V
+						case instr($mac_address, "005056") = 1
+							; VMware
+						case $mac_address = "02004C4F4F50"
+							; Microsoft Loopback Adapter
+							; Ethernet adapter Npcap Loopback Adapter
+						case instr($mac_address, "080027") = 1
+							; Oracle Virtualbox before v5
+						case instr($mac_address, "0A0027") = 1
+							; Oracle Virtualbox v5+
+						case $mac_address = "0250F2000001"
+							; Citrix Virtual Adapter
+						case $mac_address = "204153594EFF"
+							; Microsoft Remote Access serial network driver (asyncmac.sys)
+						case 1
+							$_ip_info_mac_address_list = add_flag($_ip_info_mac_address_list, $mac_address)
+					endselect
+					; Check if this is the current adapter.
+					$metric = $query_result.IPConnectionMetric
+					if $metric < $max_metric and $default_gateway and $subnet_mask
+						; This is potentially the current adapter, reset the connection metric to the current lowest value.
+						$max_metric = $metric
+						$_ip_info_ip_address = $ip_address
+						$_ip_info_subnet_mask = $subnet_mask
+						$_ip_info_default_gateway = $default_gateway
+						$_ip_info_dhcp_server = $dhcp_server
+						$_ip_info_mac_address = $mac_address
+					endif
+				next
+			endif
+		endif
+	endif
+	; Return the specified info from cached values.
+	select
+		case $type = "ip_address"
+			$ip_info = $_ip_info_ip_address
+		case $type = "mac_address"
+			$ip_info = $_ip_info_mac_address
+		case $type = "subnet_mask"
+			$ip_info = $_ip_info_subnet_mask
+		case $type = "default_gateway"
+			$ip_info = $_ip_info_default_gateway
+		case $type = "dhcp_server"
+			$ip_info = $_ip_info_dhcp_server
+		case $type = "mac_address_list"
+			$ip_info = $_ip_info_mac_address_list
+	endselect
+endfunction

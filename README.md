@@ -145,6 +145,7 @@ These functions should help gathering data about software, hardware, user, and n
 - **`windows_service_pack()`** _Windows service pack number._
 - **`windows_version()`** _Version of Windows, including Embedded (e) and Server Core (c), for example `2012R2c`._
 
+
 ## Software information
 - **`av_product()`** _Anti-virus product name (acronym like SEP)._
 - **`av_scan_date()`** _Anti-virus last scan date (yyyy-mm-dd)._
@@ -171,6 +172,11 @@ These functions should help gathering data about software, hardware, user, and n
 - **`user_id()`** _Active Directory user ID._
 - **`user_name()`** _Full name of the user._
 - **`user_privileges()`** _Effective user's privileges based on AD group membership._
+
+
+## Networking information
+- **`ip_info(`**`$type`**`)`** _Information about the active network adapter: `[ip_address|mac_address|subnet_mask|default_gateway|mac_address_list]`._
+
 
 ## Misc. information
 - **`invocation_type()`** _Script invocation type._
