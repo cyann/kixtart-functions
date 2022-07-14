@@ -182,10 +182,12 @@ These functions should help gathering data about software, hardware, user, and n
 
 
 ## Networking information
+These functions return information about the active network card.
+- **`ip_address()`** _IP address (`xxx.xxx.xxx.xxx`)._
 - **`ip_info(`**`$type`**`)`** _Information about the active network adapter: `[ip_address|mac_address|subnet_mask|default_gateway|mac_address_list]`._
-- **`ip_subnet()`** _Active IP subnet (`xxx.xxx.xxx.xxx/xx`)._
+- **`ip_subnet()`** _IP subnet (`xxx.xxx.xxx.xxx/xx`)._
 - **`mac_address_list()`** _List of MAC addresses._
-- **`mac_address()`** _Active MAC address (`xxxxxxxxxxxx`)._
+- **`mac_address()`** _MAC address (`xxxxxxxxxxxx`)._
 
 
 ## Misc. information

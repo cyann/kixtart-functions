@@ -1,0 +1,21 @@
+; Return the IP address of the active network card.
+function ip_address()
+	$ip_address = ip_info("ip_address")
+	if not $ip_address
+		dim $ip_address_array[]
+		$ip_address_array = split(@ipaddress0, ".")
+		if ubound($ip_address_array) = 3
+			$ip_address = trim($ip_address_array[0]) + "." + trim($ip_address_array[1]) + "." + trim($ip_address_array[2]) + "." + trim($ip_address_array[3])
+		else
+			dim $enum_ip, $index
+			$enum_ip = enumipinfo($index, 0, 1)
+			while not @error
+				if $enum_ip <> "0.0.0.0" and not instr($enum_ip, "169.254.") and not instr($enum_ip, "192.168.")
+					$ip_address = $enum_ip
+				endif
+				$index = $index + 1
+				$enum_ip = enumipinfo($index, 0, 1)
+			loop
+		endif
+	endif
+endfunction
