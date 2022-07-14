@@ -174,6 +174,7 @@ These functions should help gathering data about software, hardware, user, and n
 - **`user_domain()`** _Active Directory user domain._
 - **`user_id()`** _Active Directory user ID._
 - **`user_name()`** _Full name of the user._
+- **`user_ou()`** _Active Directory user OU._
 - **`user_privileges()`** _Effective user's privileges based on AD group membership._
 
 

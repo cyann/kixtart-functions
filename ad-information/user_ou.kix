@@ -1,0 +1,18 @@
+; Return the Active Directory canonical name of the user object.
+function user_ou()
+	; Example: domain/OU/UserID
+	if instr(@sid, "S-1-5-21")
+		dim $name_translate
+		$name_translate = createobject("NameTranslate")
+		if not @error
+			$name_translate.init(1, @ldomain)
+			$name_translate.set(3, @ldomain + "\" + @userid)
+			$user_ou = $name_translate.get(2)
+			$user_ou = trim_dc($user_ou)
+		endif
+		; Use the Policy cache if empty.
+		if not $user_ou
+			$user_ou = dn_to_ou(readvalue("HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\" + @sid, "Distinguished-Name"))
+		endif
+	endif
+endfunction
