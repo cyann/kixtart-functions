@@ -1,0 +1,4 @@
+; Return the list of MAC addresses.
+function mac_address_list()
+	$mac_address_list = ip_info("mac_address_list")
+endfunction
