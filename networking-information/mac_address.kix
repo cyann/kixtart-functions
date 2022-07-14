@@ -1,0 +1,29 @@
+; Return the MAC address.
+function mac_address()
+	; First try with ip_info() which is using WMI.
+	$mac_address = ip_info("mac_address")
+	; Try with KiXtart if WMI failed.
+	if not $mac_address
+		$mac_address = @address
+	endif
+	; All methods failed, try with ipconfig.exe.
+	if not $mac_address
+		; Note: this assumes that the first address returned is the physical address.
+		dim $ipconfig_tmp, $ipconfig_exe, $ipconfig_command, $file_handle, $line, $nul
+		$ipconfig_tmp = get_temp_file()
+		$ipconfig_exe = expandenvironmentvars("%SystemRoot%") + "\System32\ipconfig.exe"
+		$ipconfig_command = expandenvironmentvars("%comspec%") + " /c " + $ipconfig_exe + " /all > " + chr(34) + $ipconfig_tmp + chr(34)
+		shell $ipconfig_command
+		$file_handle = freefilehandle()
+		$nul = open($file_handle, $ipconfig_tmp, 2)
+		$line = readline($file_handle)
+		while not @error and not $mac_address
+			if substr(($line), len($line) - 2, 1) = "-" and substr(($line), len($line) - 17, 1) = " "
+				$mac_address = "" + join(split(substr(($line), len($line) - 16, ), "-"), "")
+			endif
+			$line = readline($file_handle)
+		loop
+		$nul = close($file_handle)
+		del $ipconfig_tmp
+	endif
+endfunction

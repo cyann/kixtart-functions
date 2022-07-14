@@ -182,6 +182,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## Networking information
 - **`ip_info(`**`$type`**`)`** _Information about the active network adapter: `[ip_address|mac_address|subnet_mask|default_gateway|mac_address_list]`._
+- **`mac_address()`** _Active MAC address._
 
 
 ## Misc. information
