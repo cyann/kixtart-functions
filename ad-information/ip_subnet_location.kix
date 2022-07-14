@@ -1,0 +1,46 @@
+; Return a subnet location from Active Directory, default to the current subnet (xxx.xxx.xxx.xxx/xx).
+function ip_subnet_location(optional $ip_subnet)
+	dim $nul, $ds_temp_file, $dsget_query_command, $file_handle, $line, $x64
+	if not $ip_subnet
+		; Get the current subnet (xxx.xxx.xxx.xxx/xx).
+		$ip_subnet = ip_subnet()
+	endif
+	; Return if the subnet could not be determined.
+	if not $ip_subnet
+		exit
+	endif
+	; Query LDAP using dsquery and dsget.
+	; Disable x64 file redirection since dsquery.exe and dsget.exe are not available in C:\Windows\SysWOW64.
+	if @onwow64
+		$x64 = setoption("Wow64FileRedirection", "OFF")
+	endif
+	$ds_temp_file = get_temp_file()
+	$dsget_query_command = "%comspec% /c dsquery subnet -name " + chr(34) + $ip_subnet + chr(34) + " 2>nul | dsget subnet -loc > " + chr(34) + $ds_temp_file + chr(34) + " 2>nul"
+	shell $dsget_query_command
+	; Return on error.
+	if @error
+		$x64 = setoption("Wow64FileRedirection", $x64)
+		exit
+	endif
+	$file_handle = freefilehandle()
+	$nul = open($file_handle, $ds_temp_file, 2)
+	$line = readline($file_handle)
+	while not @error and not $ip_subnet_location
+		select
+			case instr($line, "  loc") = 1
+				; First line, skip.
+			case $line = "dsget succeeded"
+				; Last line, skip.
+			case instr($line, "  ") = 1
+				$ip_subnet_location = trim($line)
+		endselect
+		$line = readline($file_handle)
+	loop
+	; Cleanup.
+	$nul = close($file_handle)
+	del $ds_temp_file
+	; End of x64 file redirection.
+	if $x64
+		$x64 = setoption("Wow64FileRedirection", $x64)
+	endif
+endfunction
