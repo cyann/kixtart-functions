@@ -1,0 +1,15 @@
+; Return a 3-letter acronym if running in a virtual environment.
+function virtual_machine()
+	dim $disk_id
+	$disk_id = readvalue("HKLM\SYSTEM\CurrentControlSet\Services\Disk\Enum", "0")
+	select
+		case instr($disk_id, "Ven_Dell&Prod_VIRTUAL_DISK")
+			; Not a VM.
+		case instr($disk_id, "VMware")
+			$virtual_machine = "vmw"
+		case instr($disk_id, "VBOX")
+			$virtual_machine = "vbx"
+		case instr($disk_id, "Virtual")
+			$virtual_machine = "vpc"
+	endselect
+endfunction

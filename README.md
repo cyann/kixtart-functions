@@ -136,6 +136,7 @@ These functions should help gathering data about software, hardware, user, and n
 - **`ram_size_gb()`** _RAM size, rounded in GB (e.g. `3.75` -> `4.0`)._
 - **`serial_number()`** _Serial number._
 - **`shared_folder_list()`** _List of shared folders with their permissions._
+- **`virtual_machine()`** _Acronym of the host VM product._
 
 
 ## Windows information
