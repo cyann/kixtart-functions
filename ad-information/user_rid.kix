@@ -1,0 +1,6 @@
+; Return the user relative Identifier (RID, last part of the SID).
+function user_rid()
+	; A full SID looks like S-1-5-21-#########-##########-#########-$$$$$.
+	; The 3 middle strings are the domain ID (same for all objects in the same domain).
+	$user_rid = substr(@sid, instrrev(@sid, "-") + 1)
+endfunction
