@@ -1,0 +1,9 @@
+; Return the current IP subnet (xxx.xxx.xxx.xxx/xx).
+function ip_subnet()
+	dim $ip_address, $subnet_mask
+	$ip_address = ip_info("ip_address")
+	$subnet_mask = ip_info("subnet_mask")
+	if $ip_address and $subnet_mask
+		$ip_subnet = ip_to_subnet($ip_address, $subnet_mask)
+	endif
+endfunction
