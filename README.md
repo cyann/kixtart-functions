@@ -183,6 +183,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 
 ## Security information
+- **`cipher_suite_list()`** _List of the system cipher suites._
 - **`is_admin()`** _Return 1 if running as admin or system._
 - **`user_privileges()`** _Effective user's privileges based on AD group membership._
 

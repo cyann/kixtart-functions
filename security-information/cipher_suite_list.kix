@@ -1,0 +1,9 @@
+; Return the list of cipher suites in hex codes.
+function cipher_suite_list()
+	dim $cipher_reg_data, $cipher_array[], $cipher
+	$cipher_reg_data = readvalue("HKLM\SYSTEM\CurrentControlSet\Control\Cryptography\Configuration\Local\Default\00010002", "Functions")
+	$cipher_array = split($cipher_reg_data, "|")
+	for each $cipher in $cipher_array
+		$cipher_suite_list = add_flag($cipher_suite_list, cipher_to_hex($cipher))
+	next
+endfunction
