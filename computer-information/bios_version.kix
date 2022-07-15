@@ -1,0 +1,22 @@
+; Return the BIOS version from WMI.
+function bios_version()
+	if instr(readvalue("HKLM\SYSTEM\CurrentControlSet\Services\Disk\Enum", "0"), "VBOX")
+		; Running on VirtualBox.
+		dim $video_bios_version_array
+		$video_bios_version_array = split(readvalue("HKLM\HARDWARE\DESCRIPTION\System", "VideoBiosVersion"), " ")
+		if ubound($video_bios_version_array)
+			$bios_version = $video_bios_version_array[ascan($video_bios_version_array, ".", , , 1)]
+			exit
+		endif
+	endif
+	dim $wmi_object, $wmi_query, $item, $nul
+	$wmi_object = getobject("winmgmts:{impersonationlevel=impersonate}!\\" + @wksta)
+	if not @error
+		$wmi_query = $wmi_object.execquery("select * from Win32_BIOS", , 48)
+		for each $item in $wmi_query
+			if not $bios_version
+				$bios_version = trim($item.SMBIOSBIOSVersion)
+			endif
+		next
+	endif
+endfunction
