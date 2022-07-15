@@ -1,0 +1,41 @@
+; Return the date of the last system restart.
+function boot_date_time()
+	; First try with WMI (accurate when working).
+	dim $wmi_object, $wmi_boot_time, $item, $date_time, $nul
+	$wmi_object = getobject("winmgmts:{impersonationlevel=impersonate}!\\" + @wksta)
+	if not @error
+		$wmi_boot_time = $wmi_object.execquery("select LastBootUpTime from Win32_OperatingSystem", , 48)
+		if not @error
+			for each $item in $wmi_boot_time
+				$date_time = $item.LastBootUpTime
+			next
+			$boot_date_time = "" + substr($date_time, 1, 4) + "-" + substr($date_time, 5, 2) + "-" + substr($date_time, 7, 2) + " " +
+				substr($date_time, 9, 2) + ":" + substr($date_time, 11, 2) + ":" + substr($date_time, 13, 2)
+		endif
+	endif
+	; When WMI fails, try by searching for event 6009 (much slower).
+	if $boot_date_time = "" or instr($boot_date_time, "::") or instr($boot_date_time, "-00-")
+		dim $wmi_query, $query_result
+		$wmi_object = getobject("winmgmts:{impersonationlevel=impersonate}!\\" + @wksta + "\root\cimv2")
+		if not @error
+			$wmi_query = $wmi_object.execquery("select TimeGenerated from Win32_NTLogEvent where logfile='System' and EventCode = '6009' and SourceName = 'EventLog'", , 48)
+			if not @error
+				for each $query_result in $wmi_query
+					$date_time = $query_result.TimeGenerated
+					if instr($date_time, ".")
+						$boot_date_time = wmi_utc_to_date_time($date_time)
+						if not $boot_date_time
+							$boot_date_time = "" + substr($date_time, 1, 4) + "-" + substr($date_time, 5, 2) + "-" + substr($date_time, 7, 2) + " " + substr($date_time, 9, 2) + ":" + substr($date_time, 11, 2) + ":" + substr($date_time, 13, 2)
+							exit
+						endif
+					endif
+				next
+			endif
+		endif
+	endif
+	; Using @ticks is very fast, however it rolls over after 24 days, this can be used when everything else fails.
+	if ($boot_date_time = "" or instr($boot_date_time, "::") or instr($boot_date_time, "-00-")) and @ticks > 0
+		$boot_date_time = unix_to_date_time(date_time_to_unix(date_time()) - (@ticks / 1000))
+		$nul = integrity_flags("boot_date_time:ticks")
+	endif
+endfunction

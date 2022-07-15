@@ -127,6 +127,7 @@ Functions to send data to web services, and deal with ip addresses.
 These functions should help gathering data about software, hardware, user, and networking configurations.
 
 ## Computer information
+- **`boot_date_time()`** _Date and time of the last system restart._
 - **`computer_name()`** _Computer name._
 - **`cpu_count()`** _Number of logical CPUs._
 - **`cpu_speed_ghz()`** _CPU speed, in GHz._
