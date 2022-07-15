@@ -1,0 +1,44 @@
+; Return the list of the user's network printers (printer queues).
+function user_network_printer_list()
+	; Note:
+	; - Printers queues with spaces in their names are concatenated with 3 dots (<first word>...<last word>).
+	; - The default printer queue is listed first.
+	dim $index, $user_printer, $default_printer, $other_printers
+	$user_printer = enumkey("HKCU\Printers\Connections", $index)
+	while not @error
+		dim $default_tag
+		; Get the print server and the printer name.
+		$user_printer = trim(substr($user_printer, (instrrev($user_printer, ",") + 1), len($user_printer)))
+		; Check if printer is default.
+		if instr(readvalue("HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows", "Device"), "\" + $user_printer + ",")
+			$default_tag = 1
+		endif
+		; Remove spaces by keeping the first and last parts separated by 3 dots.
+		if instr($user_printer, " ")
+			dim $printer_name_array[]
+			$printer_name_array = split($user_printer, " ")
+			$user_printer = $printer_name_array[0] + "..." + $printer_name_array[ubound($printer_name_array)]
+		endif
+		; Assign the printer to the correct variable.
+		if $default_tag = 1
+			$default_printer = $user_printer
+		else
+			$other_printers = add_flag($other_printers, $user_printer)
+		endif
+		; Read the next queue.
+		$index = $index + 1
+		$user_printer = enumkey("HKCU\Printers\Connections", $index)
+	loop
+	; Compile the fields.
+	$user_network_printer_list = $default_printer
+	if $other_printers
+		$user_network_printer_list = add_flag($user_network_printer_list, $other_printers)
+	else
+		dim $net_id
+		$net_id = readvalue("HKCU\Printers\Defaults", "NetID")
+		$user_network_printer_list = readvalue("HKCU\Printers\Defaults\" + $net_id, "")
+		if instr($user_network_printer_list, "HP Universal")
+			$user_network_printer_list = "HP UPD"
+		endif
+	endif
+endfunction
