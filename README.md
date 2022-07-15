@@ -173,14 +173,17 @@ These functions should help gathering data about software, hardware, user, and n
 - **`domain_controller()`** _Name of the domain controller._
 - **`enum_group_members(`**`$computer_or_domain, $group, [$filter]`**`)`** _Array of a computer or domain group's members._
 - **`ip_subnet_location(`**`[$ip_subnet]`**`)`** _Active Directory subnet location._
-- **`is_admin()`** _Return 1 if running as admin or system._
 - **`site_name()`** _Active Directory site name._
 - **`user_domain()`** _Active Directory user domain._
 - **`user_id()`** _Active Directory user ID._
 - **`user_name()`** _Full name of the user._
 - **`user_ou()`** _Active Directory user OU._
-- **`user_privileges()`** _Effective user's privileges based on AD group membership._
 - **`user_rid()`** _Active Dirstory user relative identifier._
+
+
+## Security information
+- **`is_admin()`** _Return 1 if running as admin or system._
+- **`user_privileges()`** _Effective user's privileges based on AD group membership._
 
 
 ## Networking information
