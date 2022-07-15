@@ -1,0 +1,47 @@
+; Return the oldest version of any installed Adobe PDF products (Acrobat and Reader).
+function adobe_pdf_product_version()
+	dim $index, $pdf_product_list
+	dim $acrobat_key, $acrobat_version_key, $acrobat_install_path, $acrobat_exe_version, $acrobat_dll_version
+	dim $reader_key, $reader_version_key, $reader_install_path, $reader_exe_version, $reader_dll_version
+	; Adobe Acrobat
+	$acrobat_key = "HKLM\SOFTWARE\Adobe\Adobe Acrobat"
+	$acrobat_version_key = enumkey($acrobat_key, $index)
+	while not @error and $acrobat_version_key
+		$acrobat_install_path = readvalue($acrobat_key + "\" + $acrobat_version_key + "\Installer", "Path")
+		if $acrobat_install_path
+			$acrobat_exe_version = getfileversion($acrobat_install_path + "Acrobat\Acrobat.exe", "BinFileVersion")
+			$acrobat_dll_version = getfileversion($acrobat_install_path + "Acrobat\Acrobat.dll", "BinFileVersion")
+			if compare_version($acrobat_exe_version, $acrobat_dll_version)
+				$adobe_acrobat_version = $acrobat_dll_version
+			else
+				$adobe_acrobat_version = $acrobat_exe_version
+			endif
+			if $adobe_acrobat_version
+				$pdf_product_list = add_flag($pdf_product_list, $adobe_acrobat_version)
+			endif
+		endif
+		$index = $index + 1
+		$acrobat_version_key = enumkey($acrobat_key, $index)
+	loop
+	; Adobe Reader
+	$reader_key = "HKLM\SOFTWARE\Adobe\Acrobat Reader"
+	$reader_version_key = enumkey($reader_key, $index)
+	while not @error and $reader_version_key
+		$reader_install_path = readvalue($reader_key + "\" + $reader_version_key + "\Installer", "Path")
+		if $reader_install_path
+			$reader_exe_version = getfileversion($reader_install_path + "\Reader\AcroRd32.exe", "BinFileVersion")
+			$reader_dll_version = getfileversion($reader_install_path + "\Reader\AcroRd32.dll", "BinFileVersion")
+			if compare_version($reader_exe_version, $reader_dll_version)
+				$adobe_reader_version = $reader_dll_version
+			else
+				$adobe_reader_version = $reader_exe_version
+			endif
+			if $adobe_reader_version
+				$pdf_product_list = add_flag($pdf_product_list, $adobe_acrobat_version)
+			endif
+		endif
+		$index = $index + 1
+		$reader_version_key = enumkey($reader_key, $index)
+	loop
+	$adobe_pdf_product_version = version_oldest($pdf_product_list)
+endfunction
