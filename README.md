@@ -190,6 +190,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## Networking information
 These functions return information about the active network card.
+- **`dhcp_server_ip()`** _IP address of the DHCP server (`xxx.xxx.xxx.xxx|Static`)._
 - **`ip_address()`** _IP address (`xxx.xxx.xxx.xxx`)._
 - **`ip_info(`**`$type`**`)`** _Information about the active network adapter: `[ip_address|mac_address|subnet_mask|default_gateway|mac_address_list]`._
 - **`ip_subnet()`** _IP subnet (`xxx.xxx.xxx.xxx/xx`)._

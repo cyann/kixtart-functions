@@ -1,0 +1,26 @@
+; Return the IP of the DHCP server of the active interface.
+function dhcp_server_ip()
+	; First try with ip_info().
+	$dhcp_server = ip_info("dhcp_server")
+	if $dhcp_server
+		exit
+	endif
+	dim $ip_address, $interface_key, $interface, $index
+	$ip_address = ip_address()
+	$interface_key = "HKLM\SYSTEM\CurrentControlSet\services\Tcpip\Parameters\Interfaces"
+	$interface = enumkey($interface_key, $index)
+	while not @error and $interface
+		dim $interface_subkey
+		$interface_subkey = $interface_key + "\" + $interface
+		if instr(readvalue($interface_subkey, "IPAddress"), $ip_address) or instr(readvalue($interface_subkey, "DhcpIPAddress"), $ip_address)
+			if readvalue($interface_subkey, "EnableDHCP") = 1
+				$dhcp_server = readvalue($interface_subkey, "DhcpServer")
+			else
+				$dhcp_server = "Static"
+			endif
+		endif
+		; Enum the next interface.
+		$index = $index + 1
+		$interface = enumkey($interface_key, $index)
+	loop
+endfunction
