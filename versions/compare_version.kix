@@ -2,6 +2,17 @@
 function compare_version($initial_version, $compared_version)
 	; Return 1 if the compared version is higher, 0 if equal, -1 if lower.
 	dim $initial_version_array[], $compared_version_array[], $max_version_fields, $index
+	select
+		case not $initial_version and not $compared_version
+			$compare_version = 0
+			exit
+		case $initial_version = ""
+			$compare_version = 1
+			exit
+		case $compared_version = ""
+			$compare_version = -1
+			exit
+	endselect
 	if instr($initial_version, "_")
 		$initial_version = join(split($initial_version, "_"), ".")
 	endif
