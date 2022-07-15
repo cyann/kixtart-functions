@@ -1,0 +1,20 @@
+; Return the list of the user's local printer ports.
+function user_local_printer_list()
+	dim $index, $user_printer
+	$user_printer = enumvalue("HKCU\Printers\DevModes2", $index)
+	while not @error
+		dim $virtual_port_name, $host_name
+		; Get the printer's virtual port.
+		$virtual_port_name = read_value_64("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\" + $user_printer, "Port")
+		; Get the real host name or IP.
+		if $virtual_port_name
+			$host_name = readvalue("HKLM\SYSTEM\CurrentControlSet\Control\Print\Monitors\Standard TCP/IP Port\Ports\" + $virtual_port_name, "HostName")
+			if $host_name
+				$user_local_printer_list = add_flag($user_local_printer_list, $host_name)
+			endif
+		endif
+		; Read the next queue.
+		$index = $index + 1
+		$user_printer = enumvalue("HKCU\Printers\DevModes2", $index)
+	loop
+endfunction
