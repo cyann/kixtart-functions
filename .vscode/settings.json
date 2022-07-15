@@ -13,6 +13,7 @@
 		"dectohex",
 		"dsget",
 		"dsquery",
+		"enumipinfo",
 		"enumkey",
 		"enumvalue",
 		"gibibyte",
