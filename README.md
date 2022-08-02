@@ -47,9 +47,14 @@ endfunction
 ---
 
 # Core functions
-These functions are required by other functions.
+These functions are required by the other functions.
 
-## String conversion functions
+
+## Array functions
+- **`clean_up_array(`**`$array`**`)`** _Clean up an array from commas and extra spaces._
+
+
+## Conversion functions
 - **`acronym(`**`$string`**`)`** _Return the acronym of a string._
 - **`base64_encode_native(`**`$string`**`)`** _Convert a string to its Base64 equivalent (slow)._
 - **`base64_encode(`**`$string`**`)`** _Return the Base64 conversion of the provided string (fast)._
@@ -60,17 +65,6 @@ These functions are required by other functions.
 - **`to_ascii7(`**`$string, [$replacement_char]`**`)`** _Normalize a string to 7-bit ASCII._
 - **`trim_dc(`**`$dc`**`)`** _Shorten an Active Directory DC (Domain Component)._
 - **`url_encode(`**`$string`**`)`** _Convert a string to be RFC 1738 compliant._
-
-
-## Flag functions
-Functions that deal with strings containing zero or more semicolon-separated flags. For example `flag1;flag2;flag3`.
-- **`add_flag(`**`$string, $flag`**`)`** _Add a flag to a semicolon separated string of flags._
-- **`delete_flag(`**`$string, $flag`**`)`** _Remove a flag from a semicolon separated string of flags._
-- **`sort_list(`**`$list, [$separator]`**`)`** _Return a sorted list of words separated by semicolon (;)._
-
-
-## Array functions
-- **`clean_up_array(`**`$array`**`)`** _Clean up an array from commas and extra spaces._
 
 
 ## Date and time functions
@@ -100,6 +94,21 @@ Functions that deal with strings containing zero or more semicolon-separated fla
 - **`wkix_exe_path()`** _Install, update, and return the path to the local `wkix.exe`._
 
 
+## Flag functions
+Functions that deal with strings containing zero or more semicolon-separated flags. For example `flag1;flag2;flag3`.
+- **`add_flag(`**`$string, $flag`**`)`** _Add a flag to a semicolon separated string of flags._
+- **`delete_flag(`**`$string, $flag`**`)`** _Remove a flag from a semicolon separated string of flags._
+- **`sort_list(`**`$list, [$separator]`**`)`** _Return a sorted list of words separated by semicolon (;)._
+
+
+## Networking functions
+Functions to send data to web services, and deal with ip addresses.
+
+- **`ip_to_subnet(`**`$ip_address, $subnet_mask`**`)`** _Return the subnet of an IP and it's subnet mask._
+- **`post_data(`**`$url, $data`**`)`** _Post data to a web service._
+- **`subnet_mask_to_prefix(`**`$subnet_mask`**`)`** _Return the prefix (`/x` value) of a subnet mask._
+
+
 ## Registry functions
 - **`enum_key_64(`**`$key, $index`**`)`** _Enumerate the native value of a registry key on x64._
 - **`read_value_64(`**`$key, $name`**`)`** _Read the 64-bit value of a registry key._
@@ -112,19 +121,26 @@ Functions that deal with strings containing zero or more semicolon-separated fla
 - **`version_oldest(`**`$version_list`**`)`** _Return the oldest version from a list._
 
 
-## Networking functions
-Functions to send data to web services, and deal with ip addresses.
-
-- **`ip_to_subnet(`**`$ip_address, $subnet_mask`**`)`** _Return the subnet of an IP and it's subnet mask._
-- **`post_data(`**`$url, $data`**`)`** _Post data to a web service._
-- **`subnet_mask_to_prefix(`**`$subnet_mask`**`)`** _Return the prefix (`/x` value) of a subnet mask._
-
-
 ---
 
 
 # Information gathering functions
 These functions should help gathering data about software, hardware, user, and networking configurations.
+
+
+## Active Directory information
+- **`computer_domain()`** _Domain name of the computer._
+- **`computer_ou()`** _OU name of the computer._
+- **`domain_controller()`** _Name of the domain controller._
+- **`enum_group_members(`**`$computer_or_domain, $group, [$filter]`**`)`** _Array of a computer or domain group's members._
+- **`ip_subnet_location(`**`[$ip_subnet]`**`)`** _Active Directory subnet location._
+- **`site_name()`** _Active Directory site name._
+- **`user_domain()`** _Active Directory user domain._
+- **`user_id()`** _Active Directory user ID._
+- **`user_name()`** _Full name of the user._
+- **`user_ou()`** _Active Directory user OU._
+- **`user_rid()`** _Active Dirstory user relative identifier._
+
 
 ## Computer information
 - **`bios_version()`** _BIOS version._
@@ -143,15 +159,30 @@ These functions should help gathering data about software, hardware, user, and n
 - **`virtual_machine()`** _Acronym of the host VM product._
 
 
-## Windows information
-- **`is_legacy_windows()`** _Return 1 if running on a legacy version of Windows._
-- **`windows_architecture()`** _Architecture supported by Windows [x86|x64]._
-- **`windows_edition()`** _Windows edition ID, abbreviated._
-- **`windows_install_date()`** _Windows installation or upgrade date._
-- **`windows_language()`** _Windows system language._
-- **`windows_product_suite()`** _Windows Product Suite number._
-- **`windows_service_pack()`** _Windows service pack number._
-- **`windows_version()`** _Version of Windows, including Embedded (e) and Server Core (c), for example `2012R2c`._
+## Miscellaneous information
+- **`invocation_type()`** _Script invocation type._
+
+
+## Networking information
+These functions return information about the active network card.
+- **`computer_fqdn()`** _Fully qualified domain name of the computer._
+- **`dhcp_server_ip()`** _IP address of the DHCP server (`xxx.xxx.xxx.xxx|Static`)._
+- **`ip_address()`** _IP address (`xxx.xxx.xxx.xxx`)._
+- **`ip_info(`**`$type`**`)`** _Information about the active network adapter: `[ip_address|mac_address|subnet_mask|default_gateway|mac_address_list]`._
+- **`ip_subnet()`** _IP subnet (`xxx.xxx.xxx.xxx/xx`)._
+- **`mac_address_list()`** _List of MAC addresses._
+- **`mac_address()`** _MAC address (`xxxxxxxxxxxx`)._
+
+
+## Security information
+- **`av_health()`** _Health state of the anti-virus._
+- **`av_product()`** _Anti-virus product name (acronym like SEP)._
+- **`av_scan_date()`** _Anti-virus last scan date (yyyy-mm-dd)._
+- **`cipher_suite_list()`** _List of the system cipher suites._
+- **`dlp_version()`** _Version of the Data Loss Prevention (DLP) agent._
+- **`edr_list()`** _List of Endpoint Detection and Response products with status._
+- **`is_admin()`** _Return 1 if running as admin or system._
+- **`user_privileges()`** _Effective user's privileges based on AD group membership._
 
 
 ## Software information
@@ -172,44 +203,15 @@ These functions should help gathering data about software, hardware, user, and n
 - **`user_screensaver()`** _User selected screen saver._
 
 
-## Active Directory information
-- **`computer_domain()`** _Domain name of the computer._
-- **`computer_ou()`** _OU name of the computer._
-- **`domain_controller()`** _Name of the domain controller._
-- **`enum_group_members(`**`$computer_or_domain, $group, [$filter]`**`)`** _Array of a computer or domain group's members._
-- **`ip_subnet_location(`**`[$ip_subnet]`**`)`** _Active Directory subnet location._
-- **`site_name()`** _Active Directory site name._
-- **`user_domain()`** _Active Directory user domain._
-- **`user_id()`** _Active Directory user ID._
-- **`user_name()`** _Full name of the user._
-- **`user_ou()`** _Active Directory user OU._
-- **`user_rid()`** _Active Dirstory user relative identifier._
-
-
-## Security information
-- **`av_health()`** _Health state of the anti-virus._
-- **`av_product()`** _Anti-virus product name (acronym like SEP)._
-- **`av_scan_date()`** _Anti-virus last scan date (yyyy-mm-dd)._
-- **`cipher_suite_list()`** _List of the system cipher suites._
-- **`dlp_version()`** _Version of the Data Loss Prevention (DLP) agent._
-- **`edr_list()`** _List of Endpoint Detection and Response products with status._
-- **`is_admin()`** _Return 1 if running as admin or system._
-- **`user_privileges()`** _Effective user's privileges based on AD group membership._
-
-
-## Networking information
-These functions return information about the active network card.
-- **`computer_fqdn()`** _Fully qualified domain name of the computer._
-- **`dhcp_server_ip()`** _IP address of the DHCP server (`xxx.xxx.xxx.xxx|Static`)._
-- **`ip_address()`** _IP address (`xxx.xxx.xxx.xxx`)._
-- **`ip_info(`**`$type`**`)`** _Information about the active network adapter: `[ip_address|mac_address|subnet_mask|default_gateway|mac_address_list]`._
-- **`ip_subnet()`** _IP subnet (`xxx.xxx.xxx.xxx/xx`)._
-- **`mac_address_list()`** _List of MAC addresses._
-- **`mac_address()`** _MAC address (`xxxxxxxxxxxx`)._
-
-
-## Misc. information
-- **`invocation_type()`** _Script invocation type._
+## Windows information
+- **`is_legacy_windows()`** _Return 1 if running on a legacy version of Windows._
+- **`windows_architecture()`** _Architecture supported by Windows [x86|x64]._
+- **`windows_edition()`** _Windows edition ID, abbreviated._
+- **`windows_install_date()`** _Windows installation or upgrade date._
+- **`windows_language()`** _Windows system language._
+- **`windows_product_suite()`** _Windows Product Suite number._
+- **`windows_service_pack()`** _Windows service pack number._
+- **`windows_version()`** _Version of Windows, including Embedded (e) and Server Core (c), for example `2012R2c`._
 
 
 ---
