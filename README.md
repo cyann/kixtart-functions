@@ -106,7 +106,7 @@ Functions that deal with strings containing zero or more semicolon-separated fla
 - **`reg_export(`**`$reg_key, $reg_file`**`)`** _Export a registry key to a Regedit 5 format file (UCS-2 LE BOM)._
 
 
-## Version functions
+## Versioning functions
 - **`compare_version(`**`$initial_version, $compared_version`**`)`** _Compare 2 version numbers (x.x.x.x)._
 - **`version_latest(`**`$version_list`**`)`** _Return the latest version from a list._
 - **`version_oldest(`**`$version_list`**`)`** _Return the oldest version from a list._
