@@ -1,0 +1,4 @@
+; Return the Qualys Cloud Agent Host ID.
+function qualys_hostid()
+	$qualys_hostid = read_value_64("HKLM\SOFTWARE\Qualys", "HostID")
+endfunction

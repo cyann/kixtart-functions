@@ -214,6 +214,7 @@ These functions return information about the active network card.
 - **`dlp_version()`** _Version of the Data Loss Prevention (DLP) agent._
 - **`edr_list()`** _List of Endpoint Detection and Response products with status._
 - **`is_admin()`** _Return 1 if running as admin or system._
+- **`qualys_hostid()`** _Qualys Cloud Agent Host ID._
 - **`user_privileges()`** _Effective user's privileges based on AD group membership._
 
 
