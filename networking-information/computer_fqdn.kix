@@ -1,0 +1,4 @@
+; Return the fully qualified domain name of the computer.
+function computer_fqdn()
+	$computer_fqdn = @hostname
+endfunction
