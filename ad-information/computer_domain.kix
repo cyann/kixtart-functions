@@ -1,0 +1,15 @@
+; Return the domain name of the computer.
+function computer_domain()
+	if not readvalue("HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters", "Domain")
+		; In workgroup mode, should use a cached value.
+	endif
+	if not $computer_domain
+		$computer_domain = @domain
+	endif
+	; No domain found, use the user's domain instead.
+	if not $computer_domain
+		if not instr(@ldomain, @wksta)
+			$computer_domain = @ldomain
+		endif
+	endif
+endfunction
