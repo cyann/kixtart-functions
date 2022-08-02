@@ -1,0 +1,49 @@
+; Return the computer manufacturer from WMI.
+function computer_manufacturer()
+	dim $wmi_object, $wmi_query, $item, $nul
+	$wmi_object = getobject("winmgmts:{impersonationlevel=impersonate}!\\" + @wksta)
+	if not @error
+		$wmi_query = $wmi_object.execquery("select * from Win32_ComputerSystem", , 48)
+		for each $item in $wmi_query
+			$computer_manufacturer = trim($item.Manufacturer)
+		next
+		if not $computer_manufacturer
+			$wmi_object = getobject("winmgmts:{impersonationlevel=impersonate}!\\" + @wksta)
+			if not @error
+				$wmi_query = $wmi_object.execquery("select * from Win32_BaseBoard", , 48)
+				if not @error
+					for each $item in $wmi_query
+						$computer_manufacturer = trim($item.Manufacturer)
+					next
+				endif
+			endif
+		endif
+		select
+			case instr($computer_manufacturer, "Dell") or instr($computer_manufacturer, "Quanta")
+				$computer_manufacturer = "Dell"
+			case instr($computer_manufacturer, "Apple")
+				$computer_manufacturer = "Apple"
+			case instr($computer_manufacturer, "ASUSTek")
+				$computer_manufacturer = "Asus"
+			case instr($computer_manufacturer, "Hewlett")
+				$computer_manufacturer = "HP"
+			case instr($computer_manufacturer, "LENOVO")
+				$computer_manufacturer = "Lenovo"
+			case instr($computer_manufacturer, "Microsoft")
+				$computer_manufacturer = "Microsoft"
+			case instr($computer_manufacturer, "Panasonic")
+				$computer_manufacturer = "Panasonic"
+			case instr($computer_manufacturer, "Parallels")
+				$computer_manufacturer = "Parallels"
+			case instr($computer_manufacturer, "SIEMENS")
+				$computer_manufacturer = "Siemens"
+			case instr($computer_manufacturer, "VMware")
+				$computer_manufacturer = "VMware"
+			case instr($computer_manufacturer, "innotek")
+				; VirtualBox.
+				$computer_manufacturer = "Oracle"
+			case len($computer_manufacturer) and not instr($computer_manufacturer, "WMI")
+				$computer_manufacturer = "OEM"
+		endselect
+	endif
+endfunction

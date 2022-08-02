@@ -129,6 +129,7 @@ These functions should help gathering data about software, hardware, user, and n
 ## Computer information
 - **`bios_version()`** _BIOS version._
 - **`boot_date_time()`** _Date and time of the last system restart._
+- **`computer_manufacturer()`** _Computer manufacturer._
 - **`computer_name()`** _Computer name._
 - **`cpu_count()`** _Number of logical CPUs._
 - **`cpu_speed_ghz()`** _CPU speed, in GHz._
