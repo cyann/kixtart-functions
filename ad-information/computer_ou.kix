@@ -1,0 +1,16 @@
+; Return an Active Directory canonical name of a computer object.
+function computer_ou()
+	; Example: domain/Ou/ComputerName.
+	dim $name_translate, $nul
+	$name_translate = createobject("NameTranslate")
+	if not @error
+		$nul = $name_translate.init(1, @domain)
+		$nul = $name_translate.set(3, @domain + "\" + @wksta + chr(36))
+		$computer_ou = $name_translate.get(2)
+		$computer_ou = trim_dc($computer_ou)
+	endif
+	; Use the Policy cache if empty.
+	if not $computer_ou
+		$computer_ou = dn_to_ou(readvalue("HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine", "Distinguished-Name"))
+	endif
+endfunction

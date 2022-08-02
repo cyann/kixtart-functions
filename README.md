@@ -176,6 +176,7 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## Active Directory information
 - **`computer_domain()`** _Domain name of the computer._
+- **`computer_ou()`** _OU name of the computer._
 - **`domain_controller()`** _Name of the domain controller._
 - **`enum_group_members(`**`$computer_or_domain, $group, [$filter]`**`)`** _Array of a computer or domain group's members._
 - **`ip_subnet_location(`**`[$ip_subnet]`**`)`** _Active Directory subnet location._
