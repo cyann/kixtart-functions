@@ -225,7 +225,7 @@ These functions return information about the active network card.
 
 
 ## User information
-- **`remote_session()`** _Return 1 if running in Terminal Services/RDP._
+- **`is_remote_session()`** _Return 1 if running in Terminal Services/RDP._
 - **`user_browser_path()`** _Path to the user's default browser._
 - **`user_language()`** _User selected language._
 - **`user_local_printer_list()`** _List of the user's local printer ports._

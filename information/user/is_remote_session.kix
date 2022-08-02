@@ -1,12 +1,12 @@
 ; Return 1 if running in Terminal Services/RDP.
-function remote_session()
-	$remote_session = 0
+function is_remote_session()
+	$is_remote_session = 0
 	select
 		case expandenvironmentvars("%SESSIONNAME%") <> "" and expandenvironmentvars("%SESSIONNAME%") <> "Console"
 			; From Vista/2008, SESSIONNAME = RDP-Tcp#x.
-			$remote_session = 1
+			$is_remote_session = 1
 		case expandenvironmentvars("%WINSTATIONNAME%")
 			; Legacy OS.
-			$remote_session = 1
+			$is_remote_session = 1
 	endselect
 endfunction

@@ -9,7 +9,7 @@ function invocation_type()
 	select
 		case not instr(@sid, "S-1-5-21")
 			$invocation_type = "System"
-		case remote_session()
+		case is_remote_session()
 			$invocation_type = "Remote"
 		case $default_user and $default_domain and $auto_logon = 1
 			$invocation_type = "Auto"
