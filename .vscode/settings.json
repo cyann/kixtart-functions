@@ -2,6 +2,7 @@
 	"files.eol": "\r\n",
 	"cSpell.words": [
 		"ACPI",
+		"Acro",
 		"ADODB",
 		"ascan",
 		"autoit",
@@ -40,6 +41,7 @@
 		"SMBIOSBIOS",
 		"srnd",
 		"syslang",
+		"Tcpip",
 		"Wbem",
 		"winmgmts",
 		"wkix",
