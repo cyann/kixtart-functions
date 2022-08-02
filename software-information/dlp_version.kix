@@ -1,0 +1,15 @@
+; Return the version of the Data Loss Prevention (DLP) agent.
+function dlp_version()
+	; This function detects only the Symantec Data Loss Prevention Endpoint Agent version (edpa.exe)
+	; Path is from HKLM\SYSTEM\CurrentControlSet\services\SymantecSBBS but the key cannot be read by users.
+	$dlp_version = get_file_version_64("C:\Program Files\Symantec\WS32IE\edpa.exe")
+	if not $dlp_version
+		$dlp_version = get_file_version_64(expandenvironmentvars("%ProgramFiles%") + "\Symantec\WS32IE\edpa.exe")
+	endif
+	if not $dlp_version
+		$dlp_version = getfileversion("C:\Program Files\Symantec\WS32IE\edpa.exe", "BinFileVersion")
+	endif
+	if not $dlp_version
+		$dlp_version = getfileversion(expandenvironmentvars("%ProgramFiles%") + "\Symantec\WS32IE\edpa.exe", "BinFileVersion")
+	endif
+endfunction

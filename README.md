@@ -158,6 +158,7 @@ These functions should help gathering data about software, hardware, user, and n
 - **`adobe_pdf_product_version()`** _Adobe PDF product version (oldest version of Acrobat or Reader)._
 - **`av_product()`** _Anti-virus product name (acronym like SEP)._
 - **`av_scan_date()`** _Anti-virus last scan date (yyyy-mm-dd)._
+- **`dlp_version()`** _Version of the Data Loss Prevention (DLP) agent._
 - **`dotnet_version_list()`** _List of Microsoft .NET Framework versions._
 - **`ie_version()`** _Internet Explorer version._
 - **`office_version_list()`** _List of Microsoft Office versions._
