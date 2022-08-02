@@ -13,6 +13,7 @@
 		"cimv",
 		"cint",
 		"cstr",
+		"ctifile",
 		"dectohex",
 		"dsget",
 		"dsquery",
@@ -51,6 +52,7 @@
 		"winmgmts",
 		"wkix",
 		"wksta",
+		"xagt",
 		"Xtart"
 	]
 }
