@@ -156,9 +156,6 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## Software information
 - **`adobe_pdf_product_version()`** _Adobe PDF product version (oldest version of Acrobat or Reader)._
-- **`av_product()`** _Anti-virus product name (acronym like SEP)._
-- **`av_scan_date()`** _Anti-virus last scan date (yyyy-mm-dd)._
-- **`dlp_version()`** _Version of the Data Loss Prevention (DLP) agent._
 - **`dotnet_version_list()`** _List of Microsoft .NET Framework versions._
 - **`ie_version()`** _Internet Explorer version._
 - **`office_version_list()`** _List of Microsoft Office versions._
@@ -191,7 +188,10 @@ These functions should help gathering data about software, hardware, user, and n
 
 ## Security information
 - **`av_health()`** _Health state of the anti-virus._
+- **`av_product()`** _Anti-virus product name (acronym like SEP)._
+- **`av_scan_date()`** _Anti-virus last scan date (yyyy-mm-dd)._
 - **`cipher_suite_list()`** _List of the system cipher suites._
+- **`dlp_version()`** _Version of the Data Loss Prevention (DLP) agent._
 - **`edr_list()`** _List of Endpoint Detection and Response products with status._
 - **`is_admin()`** _Return 1 if running as admin or system._
 - **`user_privileges()`** _Effective user's privileges based on AD group membership._
