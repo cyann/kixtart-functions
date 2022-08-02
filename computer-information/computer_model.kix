@@ -1,0 +1,33 @@
+; Return the computer model from WMI.
+function computer_model()
+	dim $wmi_object, $wmi_query, $item, $model, $nul
+	$wmi_object = getobject("winmgmts:{impersonationlevel=impersonate}!\\" + @wksta)
+	if not @error
+		$wmi_query = $wmi_object.execquery("select * from Win32_ComputerSystem", , 48)
+		for each $item in $wmi_query
+			$model = trim($item.Model)
+		next
+		$wmi_object = ""
+		if not $model
+			$wmi_object = getobject("winmgmts:{impersonationlevel=impersonate}!\\" + @wksta)
+			if not @error
+				$wmi_query = $wmi_object.execquery("select * from Win32_BaseBoard", , 48)
+				if not @error
+					for each $item in $wmi_query
+						$model = trim($item.Model)
+					next
+				endif
+			endif
+		endif
+		select
+			case instr($model, "VMware")
+				$model = "VMware"
+			case instr($model, "To Be Fill")
+				or instr($model, "System")
+				or instr($model, "AWRDACPI")
+				or instr($model, "Not Available")
+					$model = "OEM"
+		endselect
+		$computer_model = trim($model)
+	endif
+endfunction
