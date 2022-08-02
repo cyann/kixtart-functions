@@ -1,0 +1,36 @@
+; Return the list of Endpoint Detection and Response products.
+function edr_list()
+	; EDR Products:
+	; fes	FireEye Endpoint Security (xagt)
+	; cbr	Carbon Black Response
+	; cbd	Carbon Black Defense, and Predictive Security Cloud (PSC)
+
+	; Status:
+	; i	Installed
+	; r	Running
+
+	; fes - FireEye Endpoint Security (xagt).
+	if keyexist("HKLM\SYSTEM\CurrentControlSet\Services\xagt")
+		if readvalue("HKLM\SYSTEM\CurrentControlSet\Services\xagt", "Start") = 2
+			$edr_list = add_flag($edr_list, "fes:r")
+		else
+			$edr_list = add_flag($edr_list, "fes:i")
+		endif
+	endif
+	; cbr - Carbon Black Response.
+	if keyexist("HKLM\SYSTEM\CurrentControlSet\Services\CarbonBlack")
+		if readvalue("HKLM\SYSTEM\CurrentControlSet\Services\CarbonBlack", "Start") = 2
+			$edr_list = add_flag($edr_list, "cbr:r")
+		else
+			$edr_list = add_flag($edr_list, "cbr:i")
+		endif
+	endif
+	; cbd - Carbon Black Defense and Predictive Security Cloud.
+	if keyexist("HKLM\SYSTEM\CurrentControlSet\Services\ctifile")
+		if readvalue("HKLM\SYSTEM\CurrentControlSet\Services\ctifile", "Start") = 0
+			$edr_list = add_flag($edr_list, "cbd:r")
+		else
+			$edr_list = add_flag($edr_list, "cbd:i")
+		endif
+	endif
+endfunction
