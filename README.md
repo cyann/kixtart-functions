@@ -1,5 +1,37 @@
-# KiXtart Functions
 Helper functions for the [KiXtart](http://www.kixtart.org/) scripting language.
+
+<!-- TOC ignore:true -->
+## Table of content
+<!-- TOC -->
+
+- [About](#about)
+	- [Requirements](#requirements)
+	- [Notes](#notes)
+	- [Prelude](#prelude)
+	- [Caching](#caching)
+- [Core functions](#core-functions)
+	- [Array functions](#array-functions)
+	- [Conversion functions](#conversion-functions)
+	- [Date and time functions](#date-and-time-functions)
+	- [File functions](#file-functions)
+	- [Flag functions](#flag-functions)
+	- [Networking functions](#networking-functions)
+	- [Registry functions](#registry-functions)
+	- [Versioning functions](#versioning-functions)
+- [Information gathering functions](#information-gathering-functions)
+	- [Active Directory information](#active-directory-information)
+	- [Computer information](#computer-information)
+	- [Miscellaneous information](#miscellaneous-information)
+	- [Networking information](#networking-information)
+	- [Security information](#security-information)
+	- [Software information](#software-information)
+	- [User information](#user-information)
+	- [Windows information](#windows-information)
+- [Abbreviations and acronyms](#abbreviations-and-acronyms)
+
+<!-- /TOC -->
+
+# About
 
 ## Requirements
 - KiXtart 4.61 or later.
